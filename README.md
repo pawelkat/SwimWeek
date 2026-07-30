@@ -11,7 +11,7 @@ Weekly swimming distance from **Google Health Connect**, shown on an AMOLED-opti
 | 3 | Health Connect permissions | Done |
 | 4 | Swim distance aggregation | Done |
 | 5 | Companion UI + Samsung bridge onboarding | Done |
-| 6 | Background sync (Changes + WorkManager) | Planned |
+| 6 | Background sync (Changes + WorkManager) | Done |
 | 7 | Glance AMOLED widget | Done |
 | 8 | Testing harness & privacy gates | Planned |
 | 9 | Play listing polish | Planned |

@@ -7,6 +7,8 @@ import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.domain.DistanceUnit
 import com.swimweek.app.domain.WeeklySwimSummary
 import com.swimweek.app.health.SwimDistanceRepository
+import com.swimweek.app.sync.SyncReason
+import com.swimweek.app.sync.SyncScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +32,7 @@ data class HomeUiState(
 class HomeViewModel @Inject constructor(
     private val repository: SwimDistanceRepository,
     private val preferencesStore: PreferencesStore,
+    private val syncScheduler: SyncScheduler,
 ) : ViewModel() {
 
     private val refreshing = MutableStateFlow(false)
@@ -55,15 +58,17 @@ class HomeViewModel @Inject constructor(
     )
 
     init {
-        refresh()
+        syncScheduler.ensureScheduled()
+        refresh(reason = SyncReason.APP_FOREGROUND)
     }
 
-    fun refresh() {
+    fun refresh(reason: SyncReason = SyncReason.MANUAL) {
         viewModelScope.launch {
             refreshing.value = true
             error.value = null
             try {
-                repository.refreshWeeklySummary(forceFull = true)
+                repository.sync(reason)
+                syncScheduler.ensureScheduled()
             } catch (e: Exception) {
                 error.value = e.message ?: e::class.java.simpleName
             } finally {

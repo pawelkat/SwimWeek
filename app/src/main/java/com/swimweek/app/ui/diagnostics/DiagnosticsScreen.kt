@@ -28,6 +28,7 @@ import com.swimweek.app.domain.DistanceSource
 import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.WeeklySwimSummary
 import com.swimweek.app.health.SwimDistanceRepository
+import com.swimweek.app.sync.SyncReason
 import com.swimweek.app.ui.onboarding.SamsungBridgeChecklist
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.LengthFormat
@@ -65,7 +66,7 @@ class DiagnosticsViewModel @Inject constructor(
 
     fun refresh() {
         viewModelScope.launch {
-            repository.refreshWeeklySummary(forceFull = true)
+            repository.sync(SyncReason.MANUAL)
         }
     }
 }
