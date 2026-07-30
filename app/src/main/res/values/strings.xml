@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SwimWeek</string>
+    <string name="home_placeholder_subtitle">Weekly swimming distance</string>
+    <string name="home_placeholder_hint">Pull to refresh after granting Health Connect access</string>
+    <string name="home_week_label">This week\'s swimming</string>
+    <string name="home_session_count">%1$d swim session(s)</string>
+    <string name="home_partial_sessions">%1$d session(s) with missing distance</string>
+    <string name="home_origin_sample">Source sample: %1$s</string>
+    <string name="home_refresh">Refresh from Health Connect</string>
+    <string name="home_refreshing">Refreshing…</string>
+    <string name="home_permissions">Health Connect permissions</string>
+    <string name="home_add_widget">Add home screen widget</string>
+    <string name="home_widget_pinned">Widget pin requested — place it on the home screen</string>
+    <string name="home_widget_pin_unsupported">Long-press the home screen → Widgets → SwimWeek</string>
+
+    <string name="widget_name">SwimWeek</string>
+    <string name="widget_description">This week\'s swimming distance (AMOLED)</string>
+    <string name="widget_loading">SwimWeek</string>
+    <string name="home_status_loading">Loading…</string>
+    <string name="home_status_ok">Synced from Health Connect</string>
+    <string name="home_status_no_data">No swim sessions this week</string>
+    <string name="home_status_permissions">Grant Exercise &amp; Distance permissions</string>
+    <string name="home_status_hc_unavailable">Health Connect not available</string>
+    <string name="home_status_bridge">No data — check Samsung Health → Health Connect</string>
+    <string name="home_status_error">Could not read Health Connect</string>
+
+    <string name="onboarding_title">Connect swimming data</string>
+    <string name="onboarding_subtitle">SwimWeek reads pool and open-water workouts from Health Connect on this device only.</string>
+    <string name="onboarding_step_hc">1. Health Connect</string>
+    <string name="onboarding_step_permissions">2. Permissions</string>
+    <string name="onboarding_stub_bridge">Next (coming soon): Samsung Health → Health Connect bridge checklist for Galaxy Watch 7.</string>
+    <string name="onboarding_continue">Continue</string>
+    <string name="onboarding_skip_for_now">Skip for now</string>
+
+    <string name="hc_status_available">Health Connect is installed and ready.</string>
+    <string name="hc_status_update_required">Health Connect needs to be installed or updated.</string>
+    <string name="hc_status_unavailable">Health Connect is not available on this device.</string>
+    <string name="hc_install_or_update">Open Health Connect on Play Store</string>
+
+    <string name="permissions_needed">Allow Exercise and Distance so SwimWeek can total this week\'s swims.</string>
+    <string name="permissions_granted">Required permissions granted.</string>
+    <string name="permissions_background_optional">Background access not granted yet (optional; used later for the home-screen widget).</string>
+    <string name="permissions_request">Grant Health Connect access</string>
+
+    <string name="privacy_title">Privacy &amp; permissions</string>
+    <string name="privacy_open">Why we need access</string>
+    <string name="privacy_body">SwimWeek shows your weekly swimming distance from Health Connect. Data stays on this phone. We do not upload workouts to a server, and this app does not use the internet.</string>
+    <string name="privacy_permissions_list">We request read access to:\n• Exercise sessions (to find pool and open-water swims)\n• Distance (to total meters for those sessions)\n• Background read (optional, for the home-screen widget)\n\nWe never write workouts and do not request health history beyond the platform default window.</string>
+    <string name="privacy_no_network">No INTERNET permission. Derived weekly totals are stored only on device and excluded from backup.</string>
+</resources>
