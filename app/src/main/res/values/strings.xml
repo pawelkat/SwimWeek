@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SwimWeek</string>
+    <string name="swim_icon_cd">Swimmer</string>
+    <string name="nav_back">← Back</string>
+
     <string name="home_placeholder_subtitle">Weekly swimming distance</string>
     <string name="home_placeholder_hint">Pull to refresh after granting Health Connect access</string>
     <string name="home_week_label">This week\'s swimming</string>
@@ -9,14 +12,12 @@
     <string name="home_origin_sample">Source sample: %1$s</string>
     <string name="home_refresh">Refresh from Health Connect</string>
     <string name="home_refreshing">Refreshing…</string>
-    <string name="home_permissions">Health Connect permissions</string>
+    <string name="home_diagnostics">Diagnostics</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_setup_guide">Setup guide (HC + Samsung)</string>
     <string name="home_add_widget">Add home screen widget</string>
     <string name="home_widget_pinned">Widget pin requested — place it on the home screen</string>
     <string name="home_widget_pin_unsupported">Long-press the home screen → Widgets → SwimWeek</string>
-
-    <string name="widget_name">SwimWeek</string>
-    <string name="widget_description">This week\'s swimming distance (AMOLED)</string>
-    <string name="widget_loading">SwimWeek</string>
     <string name="home_status_loading">Loading…</string>
     <string name="home_status_ok">Synced from Health Connect</string>
     <string name="home_status_no_data">No swim sessions this week</string>
@@ -24,12 +25,24 @@
     <string name="home_status_hc_unavailable">Health Connect not available</string>
     <string name="home_status_bridge">No data — check Samsung Health → Health Connect</string>
     <string name="home_status_error">Could not read Health Connect</string>
+    <string name="home_hint_no_data">If you swam on Watch 7, open Diagnostics and review the Samsung bridge checklist.</string>
+    <string name="home_hint_permissions">Open Setup guide and grant Health Connect access.</string>
+    <string name="home_hint_bridge">Confirm Samsung Health is exporting exercise &amp; distance to Health Connect.</string>
+    <string name="home_hint_hc">Install or update Health Connect from the Play Store.</string>
+
+    <string name="widget_name">SwimWeek</string>
+    <string name="widget_description">This week\'s swimming distance (AMOLED)</string>
+    <string name="widget_loading">SwimWeek</string>
 
     <string name="onboarding_title">Connect swimming data</string>
     <string name="onboarding_subtitle">SwimWeek reads pool and open-water workouts from Health Connect on this device only.</string>
+    <string name="onboarding_step_indicator">Step %1$d of %2$d</string>
     <string name="onboarding_step_hc">1. Health Connect</string>
     <string name="onboarding_step_permissions">2. Permissions</string>
-    <string name="onboarding_stub_bridge">Next (coming soon): Samsung Health → Health Connect bridge checklist for Galaxy Watch 7.</string>
+    <string name="onboarding_step_bridge">3. Samsung Health bridge</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_finish">Finish</string>
     <string name="onboarding_continue">Continue</string>
     <string name="onboarding_skip_for_now">Skip for now</string>
 
@@ -40,8 +53,42 @@
 
     <string name="permissions_needed">Allow Exercise and Distance so SwimWeek can total this week\'s swims.</string>
     <string name="permissions_granted">Required permissions granted.</string>
-    <string name="permissions_background_optional">Background access not granted yet (optional; used later for the home-screen widget).</string>
+    <string name="permissions_background_optional">Background access not granted yet (optional; used later for automatic widget refresh).</string>
     <string name="permissions_request">Grant Health Connect access</string>
+
+    <string name="bridge_title">Galaxy Watch 7 → Samsung Health → Health Connect</string>
+    <string name="bridge_intro">SwimWeek never talks to the watch directly. Check each step so swim distance can appear in Health Connect:</string>
+    <string name="bridge_item_shealth">Samsung Health is installed and you are signed in</string>
+    <string name="bridge_item_watch">Galaxy Watch 7 is paired and syncing to this phone</string>
+    <string name="bridge_item_swim_sync">A swim workout appears in Samsung Health after you finish</string>
+    <string name="bridge_item_hc_export">Samsung Health is connected to Health Connect and allowed to write Exercise and Distance</string>
+    <string name="bridge_item_swimweek_read">SwimWeek is allowed to read Exercise and Distance in Health Connect</string>
+    <string name="bridge_footer">Paths vary by One UI version. Exact menu labels should be verified on your S24 Ultra before sharing with others.</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_units">Distance units</string>
+    <string name="settings_week_start">Week starts on</string>
+    <string name="settings_week_note">Changing week start applies on the next refresh.</string>
+    <string name="unit_meters">Meters (m)</string>
+    <string name="unit_yards">Yards (yd)</string>
+    <string name="unit_miles">Miles (mi)</string>
+    <string name="week_monday">Monday</string>
+    <string name="week_sunday">Sunday</string>
+
+    <string name="diagnostics_title">Diagnostics</string>
+    <string name="diagnostics_no_cache">No cached summary yet. Refresh from Home first.</string>
+    <string name="diagnostics_status">Status</string>
+    <string name="diagnostics_total">Total (m)</string>
+    <string name="diagnostics_sessions">Sessions</string>
+    <string name="diagnostics_with_distance">With distance</string>
+    <string name="diagnostics_partial">Partial (0 m)</string>
+    <string name="diagnostics_synced">Last sync</string>
+    <string name="diagnostics_week_key">Week key</string>
+    <string name="diagnostics_user_reported">You reported swimming with no data. Review the bridge checklist below.</string>
+    <string name="diagnostics_sessions_heading">Sessions this week</string>
+    <string name="diagnostics_no_sessions">No swim sessions in the current week cache.</string>
+    <string name="diagnostics_i_swam">I swam but see no data</string>
+    <string name="diagnostics_clear_report">Clear missing-data report</string>
 
     <string name="privacy_title">Privacy &amp; permissions</string>
     <string name="privacy_open">Why we need access</string>

@@ -3,6 +3,7 @@ package com.swimweek.app.data
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -25,6 +26,7 @@ private val Context.userPrefsDataStore: DataStore<Preferences> by preferencesDat
 data class UserPreferences(
     val weekStart: DayOfWeek = DayOfWeek.MONDAY,
     val distanceUnit: DistanceUnit = DistanceUnit.defaultForLocale(),
+    val onboardingCompleted: Boolean = false,
     val schemaVersion: Int = 1,
 )
 
@@ -42,6 +44,7 @@ class PreferencesStore @Inject constructor(
             distanceUnit = prefs[Keys.DISTANCE_UNIT]?.let {
                 runCatching { DistanceUnit.valueOf(it) }.getOrNull()
             } ?: DistanceUnit.defaultForLocale(Locale.getDefault()),
+            onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false,
             schemaVersion = prefs[Keys.SCHEMA_VERSION] ?: 1,
         )
     }
@@ -56,9 +59,14 @@ class PreferencesStore @Inject constructor(
         dataStore.edit { it[Keys.DISTANCE_UNIT] = unit.name }
     }
 
+    suspend fun setOnboardingCompleted(completed: Boolean) {
+        dataStore.edit { it[Keys.ONBOARDING_COMPLETED] = completed }
+    }
+
     private object Keys {
         val WEEK_START = stringPreferencesKey("week_start")
         val DISTANCE_UNIT = stringPreferencesKey("distance_unit")
+        val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         val SCHEMA_VERSION = intPreferencesKey("schema_version")
     }
 }

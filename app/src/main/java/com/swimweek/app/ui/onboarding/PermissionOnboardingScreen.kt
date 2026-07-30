@@ -187,7 +187,7 @@ fun PermissionOnboardingScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
         Text(
-            text = stringResource(R.string.onboarding_stub_bridge),
+            text = stringResource(R.string.onboarding_step_bridge),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.outline,
         )
