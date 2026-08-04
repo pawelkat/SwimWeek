@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.os.Build
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -27,18 +25,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swimweek.app.R
 import com.swimweek.app.domain.SourceStatus
+import com.swimweek.app.domain.TargetProgress
+import com.swimweek.app.ui.components.SwimIconWithProgress
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.LengthFormat
 import com.swimweek.app.widget.SwimWeekWidgetReceiver
+import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen(
@@ -80,24 +79,40 @@ fun HomeScreen(
             }
             else -> {
                 val meters = summary?.totalDistanceMeters ?: 0.0
+                val targetM = state.preferences.weeklyTargetMeters
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_swim),
-                        contentDescription = stringResource(R.string.swim_icon_cd),
-                        // Match displayLarge line height (~56sp) so icon reads as full "row height".
-                        modifier = Modifier.size(56.dp),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                    SwimIconWithProgress(
+                        distanceMeters = meters,
+                        targetMeters = targetM,
+                        iconSize = 72.dp,
+                        iconTint = MaterialTheme.colorScheme.primary,
+                        progressColor = MaterialTheme.colorScheme.primary,
                     )
                     Spacer(modifier = Modifier.width(14.dp))
-                    Text(
-                        text = LengthFormat.format(meters, state.distanceUnit),
-                        style = MaterialTheme.typography.displayLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
+                    Column(horizontalAlignment = Alignment.Start) {
+                        Text(
+                            text = LengthFormat.format(meters, state.distanceUnit),
+                            style = MaterialTheme.typography.displayLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        if (TargetProgress.hasTarget(targetM)) {
+                            val pct = (TargetProgress.fraction(meters, targetM) * 100f)
+                                .roundToInt()
+                            Text(
+                                text = stringResource(
+                                    R.string.home_target_progress,
+                                    LengthFormat.format(targetM, state.distanceUnit),
+                                    pct,
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(

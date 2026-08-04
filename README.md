@@ -13,8 +13,9 @@ Weekly swimming distance from **Google Health Connect**, shown on an AMOLED-opti
 | 5 | Companion UI + Samsung bridge onboarding | Done |
 | 6 | Background sync (Changes + WorkManager) | Done |
 | 7 | Glance AMOLED widget | Done |
-| 8 | Testing harness & privacy gates | Planned |
-| 9 | Play listing polish | Planned |
+| 8 | Weekly distance target + progress ring (home + widget) | Done |
+| 9 | Testing harness & privacy gates | Planned |
+| 10 | Play listing polish | Planned |
 
 Full design: see design document produced with the planning pass (`grok-design-doc-*.md`).
 
