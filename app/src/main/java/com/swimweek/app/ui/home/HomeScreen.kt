@@ -88,11 +88,12 @@ fun HomeScreen(
                     SwimIconWithProgress(
                         distanceMeters = meters,
                         targetMeters = targetM,
-                        iconSize = 72.dp,
+                        iconSize = 102.dp, // 120dp * 0.85
+                        strokeWidth = 5.dp,
                         iconTint = MaterialTheme.colorScheme.primary,
                         progressColor = MaterialTheme.colorScheme.primary,
                     )
-                    Spacer(modifier = Modifier.width(14.dp))
+                    Spacer(modifier = Modifier.width(28.dp))
                     Column(horizontalAlignment = Alignment.Start) {
                         Text(
                             text = LengthFormat.format(meters, state.distanceUnit),

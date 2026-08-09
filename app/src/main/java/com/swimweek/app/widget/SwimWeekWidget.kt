@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.TypedValue
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.ColorFilter
@@ -26,6 +25,7 @@ import androidx.glance.layout.Column
 import androidx.glance.layout.ContentScale
 import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
+import androidx.glance.layout.fillMaxHeight
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
@@ -49,17 +49,13 @@ import java.time.ZoneId
 import kotlin.math.roundToInt
 
 /**
- * AMOLED home-screen widget: pure #000000, sparse fields, no system polling.
- * Swim icon with optional weekly-target progress ring.
+ * AMOLED home-screen widget: pure #000000.
+ * Icon + progress ring sized to nearly fill the widget height (exact size mode).
  */
 class SwimWeekWidget : GlanceAppWidget() {
 
-    override val sizeMode: SizeMode = SizeMode.Responsive(
-        setOf(
-            SMALL,
-            MEDIUM,
-        ),
-    )
+    /** Exact size so LocalSize matches the real widget bounds on the launcher. */
+    override val sizeMode: SizeMode = SizeMode.Exact
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val entry = context.swimWeekEntryPoint()
@@ -89,11 +85,6 @@ class SwimWeekWidget : GlanceAppWidget() {
             )
         }
     }
-
-    companion object {
-        val SMALL = DpSize(110.dp, 72.dp)
-        val MEDIUM = DpSize(200.dp, 140.dp)
-    }
 }
 
 @Composable
@@ -103,13 +94,13 @@ private fun SwimWeekWidgetContent(
 ) {
     val context = LocalContext.current
     val size = LocalSize.current
-    val compact = size.height < 80.dp
     val unit = preferences.distanceUnit
     val meters = summary?.totalDistanceMeters ?: 0.0
     val targetM = preferences.weeklyTargetMeters
     val distanceText = LengthFormat.formatCompact(meters, unit)
     val sessions = summary?.sessionCount ?: 0
     val status = summary?.sourceStatus
+    val compact = size.height < 90.dp
     val subtitle = when (status) {
         SourceStatus.PERMISSIONS_MISSING -> "grant permissions"
         SourceStatus.HEALTH_CONNECT_UNAVAILABLE -> "Health Connect needed"
@@ -134,46 +125,59 @@ private fun SwimWeekWidgetContent(
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
     }
 
-    // Maximize icon+ring: nearly full height, as much width as possible while
-    // leaving a slim column for distance text on the right.
-    val outerPad = 2.dp
-    val gap = 4.dp
-    val minTextCol = if (compact) 52.dp else 64.dp
-    val availH = (size.height - outerPad * 2).coerceAtLeast(24.dp)
-    val availWForIcon = (size.width - outerPad * 2 - gap - minTextCol).coerceAtLeast(24.dp)
-    // Square: largest that fits in remaining height AND width
-    val iconSide = if (availH.value <= availWForIcon.value) availH else availWForIcon
-    val distanceSp = when {
-        compact && iconSide.value >= 40f -> 16.sp
-        compact -> 14.sp
-        iconSide.value >= 90f -> 26.sp
-        else -> 22.sp
+    // --- Maximize ring+icon: fill almost entire widget height ---
+    val outerPad = 0.dp
+    val gap = 16.dp // keep separation from distance text
+    val minTextCol = 48.dp
+    val availH = size.height.coerceAtLeast(40.dp)
+    val availWForIcon = (size.width - gap - minTextCol).coerceAtLeast(40.dp)
+    // Prefer full height; only shrink if not enough width for a square.
+    // Then scale to 85% so the ring sits with a bit of breathing room.
+    val maxIconSide = when {
+        availH.value <= availWForIcon.value -> availH
+        else -> availWForIcon
     }
-    val secondarySp = if (compact) 10.sp else 11.sp
+    val iconSide = (maxIconSide.value * 0.85f).dp.coerceAtLeast(36.dp)
+
+    val distanceSp = when {
+        iconSide.value >= 120f -> 28.sp
+        iconSide.value >= 90f -> 24.sp
+        iconSide.value >= 64f -> 20.sp
+        else -> 16.sp
+    }
+    val secondarySp = if (compact) 10.sp else 12.sp
+
     val iconSidePx = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         iconSide.value,
         context.resources.displayMetrics,
-    ).roundToInt().coerceAtLeast(64)
+    ).roundToInt().coerceAtLeast(96)
+
     val ringBitmap = ProgressRingBitmap.create(
         sizePx = iconSidePx,
         distanceMeters = meters,
         targetMeters = targetM,
-        strokePx = (iconSidePx * 0.1f).coerceIn(4f, 14f),
+        strokePx = (iconSidePx * 0.09f).coerceIn(6f, 18f),
     )
-    // Keep swimmer large inside the ring (thin inset)
-    val iconPad = if (ringBitmap != null) (iconSide.value * 0.12f).dp.coerceAtLeast(3.dp) else 0.dp
+    // Thin pad so swimmer stays large inside ring
+    val iconPad = if (ringBitmap != null) {
+        (iconSide.value * 0.10f).dp.coerceIn(2.dp, 12.dp)
+    } else {
+        2.dp
+    }
 
     Row(
         modifier = GlanceModifier
             .fillMaxSize()
             .background(AmoledColors.Black)
-            .padding(outerPad)
+            .padding(horizontal = 4.dp, vertical = 0.dp)
             .clickable(actionStartActivity(openApp)),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
-            modifier = GlanceModifier.size(iconSide),
+            modifier = GlanceModifier
+                .size(iconSide)
+                .fillMaxHeight(),
             contentAlignment = Alignment.Center,
         ) {
             if (ringBitmap != null) {
@@ -208,9 +212,7 @@ private fun SwimWeekWidgetContent(
                 ),
                 maxLines = 1,
             )
-            if (!compact) {
-                Spacer(modifier = GlanceModifier.height(2.dp))
-            }
+            Spacer(modifier = GlanceModifier.height(2.dp))
             Text(
                 text = subtitle,
                 style = TextStyle(
@@ -220,7 +222,7 @@ private fun SwimWeekWidgetContent(
                 ),
                 maxLines = 1,
             )
-            if (!compact && targetLine != null) {
+            if (targetLine != null) {
                 Spacer(modifier = GlanceModifier.height(1.dp))
                 Text(
                     text = targetLine,
@@ -238,18 +240,6 @@ private fun SwimWeekWidgetContent(
                     text = updated,
                     style = TextStyle(
                         color = AmoledColors.tertiaryText(),
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Normal,
-                    ),
-                    maxLines = 1,
-                )
-            }
-            if (!compact && (summary?.partialDistanceSessionCount ?: 0) > 0) {
-                Spacer(modifier = GlanceModifier.height(1.dp))
-                Text(
-                    text = "partial distance",
-                    style = TextStyle(
-                        color = AmoledColors.secondaryText(),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Normal,
                     ),
