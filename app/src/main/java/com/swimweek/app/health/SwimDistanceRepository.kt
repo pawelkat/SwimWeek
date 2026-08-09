@@ -5,10 +5,13 @@ import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.SummaryCacheStore
 import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.WeekRange
+import com.swimweek.app.domain.WeekStatPoint
 import com.swimweek.app.domain.WeeklySwimSummary
 import com.swimweek.app.sync.SyncReason
 import com.swimweek.app.sync.WidgetUpdater
 import com.swimweek.app.util.ClockProvider
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
@@ -33,10 +36,14 @@ class SwimDistanceRepository @Inject constructor(
     private val widgetUpdater: WidgetUpdater,
 ) {
     private val inMemory = MutableStateFlow<WeeklySwimSummary?>(null)
+    private val weeklyHistory = MutableStateFlow<List<WeekStatPoint>>(emptyList())
 
     /** Cache + latest in-memory refresh for UI. */
     val summaryFlow: Flow<WeeklySwimSummary?> =
         combine(summaryCache.summaryFlow, inMemory) { cached, mem -> mem ?: cached }
+
+    /** Recent weeks for home bar chart (oldest → newest). */
+    val weeklyHistoryFlow: Flow<List<WeekStatPoint>> = weeklyHistory
 
     /**
      * Entry used by UI and workers.
@@ -106,9 +113,12 @@ class SwimDistanceRepository @Inject constructor(
                 doFull = true
             } else if (!drain.needsReaggregate) {
                 // No relevant HC changes — keep cache, touch lastSynced optional
-                val keep = cached ?: return fullAggregateAndToken(week, cached)
+                val keep = cached ?: return fullAggregateAndToken(week, cached).also {
+                    refreshWeeklyHistoryBestEffort()
+                }
                 // If week identity still matches, return cache (widget already correct)
                 if (keep.week.identityKey() == week.identityKey()) {
+                    refreshWeeklyHistoryBestEffort()
                     return keep
                 }
                 doFull = true
@@ -117,11 +127,71 @@ class SwimDistanceRepository @Inject constructor(
             }
         }
 
-        return if (doFull) {
+        val result = if (doFull) {
             fullAggregateAndToken(week, cached)
         } else {
             cached ?: fullAggregateAndToken(week, null)
         }
+        refreshWeeklyHistoryBestEffort()
+        return result
+    }
+
+    private suspend fun refreshWeeklyHistoryBestEffort() {
+        try {
+            weeklyHistory.value = loadWeeklyHistory(weeksBack = HISTORY_WEEKS)
+        } catch (_: Exception) {
+            // keep previous history
+        }
+    }
+
+    /**
+     * Aggregates the last [weeksBack] calendar weeks (including current).
+     * Uses the same target for all weeks (v1: single weekly target setting).
+     * Order: oldest first (left of chart) → current week last (right).
+     */
+    suspend fun loadWeeklyHistory(weeksBack: Int = HISTORY_WEEKS): List<WeekStatPoint> {
+        val prefs = preferencesStore.get()
+        val target = prefs.weeklyTargetMeters
+        if (!availability.isAvailable() || !permissionChecker.hasRequiredPermissions()) {
+            return emptyList()
+        }
+        var week = WeekRange.current(
+            zoneId = clock.zoneId(),
+            weekStart = prefs.weekStart,
+            clock = clock.clock(),
+        )
+        val labelFmt = DateTimeFormatter.ofPattern("MMM d", Locale.getDefault())
+        val points = ArrayList<WeekStatPoint>(weeksBack)
+        for (i in 0 until weeksBack) {
+            val isCurrent = i == 0
+            val summary = if (isCurrent) {
+                // Prefer already-synced current week if identity matches
+                val cached = summaryFlow.first()
+                if (cached != null && cached.week.identityKey() == week.identityKey()) {
+                    cached
+                } else {
+                    aggregator.aggregateWeek(week)
+                }
+            } else {
+                aggregator.aggregateWeek(week)
+            }
+            points.add(
+                WeekStatPoint(
+                    week = week,
+                    label = week.startLocalDate().format(labelFmt),
+                    resultMeters = summary.totalDistanceMeters,
+                    targetMeters = target,
+                    isCurrentWeek = isCurrent,
+                ),
+            )
+            week = week.previous()
+        }
+        // Chart left = oldest, right = current
+        return points.asReversed()
+    }
+
+    companion object {
+        const val HISTORY_WEEKS = 6
     }
 
     private suspend fun fullAggregateAndToken(

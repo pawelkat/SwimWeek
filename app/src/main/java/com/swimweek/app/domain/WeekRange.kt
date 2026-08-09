@@ -35,6 +35,15 @@ data class WeekRange(
     fun containsSessionStart(sessionStart: Instant): Boolean =
         !sessionStart.isBefore(start) && sessionStart.isBefore(endExclusive)
 
+    /** Local calendar date of the week start (inclusive). */
+    fun startLocalDate(): LocalDate = start.atZone(zoneId).toLocalDate()
+
+    /** Previous calendar week with the same [weekStart] and zone. */
+    fun previous(): WeekRange {
+        val prevStart = startLocalDate().minusWeeks(1)
+        return of(prevStart, zoneId, weekStart)
+    }
+
     companion object {
         /**
          * Calendar week containing [clock]'s instant in [zoneId], starting on [weekStart]

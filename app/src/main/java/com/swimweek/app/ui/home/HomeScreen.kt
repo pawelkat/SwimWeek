@@ -167,6 +167,13 @@ fun HomeScreen(
             )
         }
 
+        Spacer(modifier = Modifier.height(28.dp))
+        WeeklyStatsBarChart(
+            points = state.weekStats,
+            unit = state.distanceUnit,
+            modifier = Modifier.fillMaxWidth(),
+        )
+
         Spacer(modifier = Modifier.height(32.dp))
         Button(
             onClick = { viewModel.refresh() },

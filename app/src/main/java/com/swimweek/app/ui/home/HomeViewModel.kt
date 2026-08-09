@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.domain.DistanceUnit
+import com.swimweek.app.domain.WeekStatPoint
 import com.swimweek.app.domain.WeeklySwimSummary
 import com.swimweek.app.health.SwimDistanceRepository
 import com.swimweek.app.sync.SyncReason
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 data class HomeUiState(
     val summary: WeeklySwimSummary? = null,
     val preferences: UserPreferences = UserPreferences(),
+    val weekStats: List<WeekStatPoint> = emptyList(),
     val loading: Boolean = false,
     val refreshing: Boolean = false,
     val errorMessage: String? = null,
@@ -41,12 +43,14 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<HomeUiState> = combine(
         repository.summaryFlow,
         preferencesStore.preferencesFlow,
+        repository.weeklyHistoryFlow,
         refreshing,
         error,
-    ) { summary, prefs, isRefreshing, err ->
+    ) { summary, prefs, history, isRefreshing, err ->
         HomeUiState(
             summary = summary,
             preferences = prefs,
+            weekStats = history,
             loading = summary == null && isRefreshing,
             refreshing = isRefreshing,
             errorMessage = err,

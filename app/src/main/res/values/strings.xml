@@ -29,6 +29,12 @@
     <string name="home_hint_permissions">Open Setup guide and grant Health Connect access.</string>
     <string name="home_hint_bridge">Confirm Samsung Health is exporting exercise &amp; distance to Health Connect.</string>
     <string name="home_hint_hc">Install or update Health Connect from the Play Store.</string>
+    <string name="home_stats_title">Weekly statistics</string>
+    <string name="home_stats_subtitle">Last 6 weeks — result vs target</string>
+    <string name="home_stats_legend_result">Result</string>
+    <string name="home_stats_legend_target">Target</string>
+    <string name="home_stats_empty">No week stats yet. Refresh after granting Health Connect access.</string>
+    <string name="home_stats_scale">Scale max: %1$s</string>
 
     <string name="widget_name">SwimWeek</string>
     <string name="widget_description">This week\'s swimming distance (AMOLED)</string>
