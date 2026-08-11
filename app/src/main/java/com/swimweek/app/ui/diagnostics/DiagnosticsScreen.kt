@@ -1,6 +1,7 @@
 package com.swimweek.app.ui.diagnostics
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
+import com.swimweek.app.data.SessionPlaceStore
 import com.swimweek.app.domain.DistanceSource
 import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.WeeklySwimSummary
@@ -38,18 +40,33 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+
+data class DiagnosticsUiState(
+    val summary: WeeklySwimSummary? = null,
+    val sessionPlaces: Map<String, String> = emptyMap(),
+)
 
 @HiltViewModel
 class DiagnosticsViewModel @Inject constructor(
     private val repository: SwimDistanceRepository,
+    sessionPlaceStore: SessionPlaceStore,
 ) : ViewModel() {
 
-    val summary: StateFlow<WeeklySwimSummary?> = repository.summaryFlow.stateIn(
+    val uiState: StateFlow<DiagnosticsUiState> = combine(
+        repository.summaryFlow,
+        sessionPlaceStore.placesFlow,
+    ) { summary, places ->
+        DiagnosticsUiState(
+            summary = summary,
+            sessionPlaces = places.mapValues { it.value.poolName },
+        )
+    }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
-        null,
+        DiagnosticsUiState(),
     )
 
     fun reportMissingData() {
@@ -74,10 +91,12 @@ class DiagnosticsViewModel @Inject constructor(
 @Composable
 fun DiagnosticsScreen(
     onBack: () -> Unit,
+    onOpenSession: (sessionId: String) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: DiagnosticsViewModel = hiltViewModel(),
 ) {
-    val summary by viewModel.summary.collectAsStateWithLifecycle()
+    val ui by viewModel.uiState.collectAsStateWithLifecycle()
+    val summary = ui.summary
 
     Column(
         modifier = modifier
@@ -150,8 +169,11 @@ fun DiagnosticsScreen(
                 )
             } else {
                 s.sessions.forEach { session ->
+                    val place = ui.sessionPlaces[session.id]
                     Text(
                         text = buildString {
+                            append(place ?: stringResource(R.string.session_pool_unset))
+                            append('\n')
                             append(session.exerciseType.name)
                             append(" · ")
                             append(String.format(Locale.US, "%.0f m", session.distanceMeters))
@@ -164,7 +186,10 @@ fun DiagnosticsScreen(
                         },
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(vertical = 6.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onOpenSession(session.id) }
+                            .padding(vertical = 6.dp),
                     )
                 }
             }

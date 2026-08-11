@@ -1,5 +1,10 @@
 package com.swimweek.app.ui.settings
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
@@ -29,15 +35,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
+import com.swimweek.app.alert.PoolReminderScheduler
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.domain.DistanceUnit
@@ -58,6 +68,7 @@ import kotlinx.coroutines.launch
 class SettingsViewModel @Inject constructor(
     private val preferencesStore: PreferencesStore,
     private val widgetUpdater: WidgetUpdater,
+    private val poolReminderScheduler: PoolReminderScheduler,
 ) : ViewModel() {
 
     val preferences: StateFlow<UserPreferences> = preferencesStore.preferencesFlow.stateIn(
@@ -92,6 +103,17 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             preferencesStore.setWeeklyTargetMeters(0.0)
             widgetUpdater.updateAll()
+        }
+    }
+
+    fun setEveningPoolReminderEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesStore.setEveningPoolReminderEnabled(enabled)
+            if (enabled) {
+                poolReminderScheduler.scheduleNext(afterNotification = false)
+            } else {
+                poolReminderScheduler.cancel()
+            }
         }
     }
 }
@@ -245,6 +267,86 @@ fun SettingsScreen(
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.outline,
         )
+
+        Spacer(modifier = Modifier.height(28.dp))
+        Text(
+            text = stringResource(R.string.settings_alerts_title),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(R.string.settings_alerts_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+
+        val context = LocalContext.current
+        var notifAllowed by remember {
+            mutableStateOf(NotificationManagerCompat.from(context).areNotificationsEnabled())
+        }
+        val permissionLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { granted ->
+            notifAllowed = granted || NotificationManagerCompat.from(context).areNotificationsEnabled()
+            if (granted) {
+                viewModel.setEveningPoolReminderEnabled(true)
+            }
+        }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(
+                text = stringResource(
+                    if (prefs.eveningPoolReminderEnabled) {
+                        R.string.settings_alerts_enabled
+                    } else {
+                        R.string.settings_alerts_disabled
+                    },
+                ),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(
+                checked = prefs.eveningPoolReminderEnabled,
+                onCheckedChange = { enabled ->
+                    if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        val granted = ContextCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.POST_NOTIFICATIONS,
+                        ) == PackageManager.PERMISSION_GRANTED
+                        if (!granted) {
+                            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                        }
+                    }
+                    viewModel.setEveningPoolReminderEnabled(enabled)
+                    notifAllowed = NotificationManagerCompat.from(context).areNotificationsEnabled()
+                },
+            )
+        }
+        if (prefs.eveningPoolReminderEnabled && !notifAllowed) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(R.string.settings_alerts_permission),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedButton(
+                    onClick = {
+                        permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(stringResource(R.string.settings_alerts_grant))
+                }
+            }
+        }
     }
 }
 

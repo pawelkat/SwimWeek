@@ -13,7 +13,36 @@
     <string name="home_refresh">Refresh from Health Connect</string>
     <string name="home_refreshing">Refreshing…</string>
     <string name="home_diagnostics">Diagnostics</string>
+    <string name="home_pool_recommendations">Open pools now</string>
     <string name="home_settings">Settings</string>
+
+    <string name="recommend_title">Pool recommendations</string>
+    <string name="recommend_subtitle">Pools open now with at least %1$d minutes until closing. Favorites are listed first.</string>
+    <string name="recommend_as_of">As of %1$s (device time)</string>
+    <string name="recommend_refresh">Refresh open status</string>
+    <string name="recommend_top_heading">Best pick right now</string>
+    <string name="recommend_open_heading">Open &amp; not closing soon</string>
+    <string name="recommend_closing_soon_heading">Open but closing soon</string>
+    <string name="recommend_closing_soon_hint">Less than %1$d minutes left — tight for a full session</string>
+    <string name="recommend_none_open">No pool is open with enough time left. Check back later or pick a favorite below.</string>
+    <string name="recommend_closes_in">Closes in %1$s (at %2$s)</string>
+    <string name="recommend_favorites_closed_heading">Favorites not open now</string>
+    <string name="recommend_not_open_now">Not open right now</string>
+    <string name="recommend_favorites_manage">Your favorites</string>
+    <string name="recommend_favorites_manage_hint">Star pools you prefer — they sort to the top when open.</string>
+    <string name="recommend_favorite_on">★ Favorite</string>
+    <string name="recommend_favorite_off">☆ Favorite</string>
+
+    <string name="session_pool_favorite_kind">Favorite · %1$s</string>
+
+    <string name="pool_details_not_found">Pool not found in the offline catalogue.</string>
+    <string name="pool_details_open_now">Open now — closes in %1$s</string>
+    <string name="pool_details_closing_soon">Open but closing soon — %1$s left</string>
+    <string name="pool_details_closed_now">Not open right now (per offline timetable)</string>
+    <string name="pool_details_external">External hours: %1$s</string>
+    <string name="pool_details_today_hours">Today</string>
+    <string name="pool_details_full_schedule">Full schedule</string>
+
     <string name="home_setup_guide">Setup guide (HC + Samsung)</string>
     <string name="home_add_widget">Add home screen widget</string>
     <string name="home_widget_pinned">Widget pin requested — place it on the home screen</string>
@@ -82,6 +111,18 @@
     <string name="settings_units">Distance units</string>
     <string name="settings_week_start">Week starts on</string>
     <string name="settings_week_note">Changing week start applies on the next refresh.</string>
+    <string name="settings_alerts_title">Evening pool reminder</string>
+    <string name="settings_alerts_body">Notify 1.5 hours before the Zurich pool that stays open longest this evening closes. Uses offline opening hours.</string>
+    <string name="settings_alerts_enabled">Evening reminder on</string>
+    <string name="settings_alerts_disabled">Evening reminder off</string>
+    <string name="settings_alerts_permission">Notifications are off for SwimWeek. Enable them in system settings to receive reminders.</string>
+    <string name="settings_alerts_grant">Allow notifications</string>
+
+    <string name="alert_channel_name">Evening pool reminders</string>
+    <string name="alert_channel_description">Reminds you 1.5 hours before the longest-open evening pool closes</string>
+    <string name="alert_evening_title">Swim tonight — %1$s</string>
+    <string name="alert_evening_body">Closes at %1$s. Reminder is %2$d minutes before close — this pool stays open longest this evening.</string>
+
     <string name="unit_meters">Meters (m)</string>
     <string name="unit_yards">Yards (yd)</string>
     <string name="unit_miles">Miles (mi)</string>
@@ -103,7 +144,30 @@
     <string name="diagnostics_i_swam">I swam but see no data</string>
     <string name="diagnostics_clear_report">Clear missing-data report</string>
 
+    <string name="home_sessions_heading">Sessions this week</string>
+    <string name="home_sessions_hint">Tap a session to set the pool and view hours</string>
+
+    <string name="session_pool_title">Pool</string>
+    <string name="session_pool_label">Pool name</string>
+    <string name="session_pool_unset">Choose a pool…</string>
+    <string name="session_details_heading">Session</string>
+    <string name="session_when">When</string>
+    <string name="session_distance">Distance</string>
+    <string name="session_type">Type</string>
+    <string name="session_source">Source app</string>
+    <string name="session_flags">Flags</string>
+    <string name="session_flag_partial">missing distance</string>
+    <string name="session_flag_overlap">overlap suppressed</string>
+    <string name="session_not_found">Session not in this week\'s cache. Refresh from Home and try again.</string>
+    <string name="session_hours_heading">Opening hours</string>
+    <string name="session_hours_unavailable">No timetable stored for this pool (external operator or seasonal page).</string>
+    <string name="session_hours_disclaimer">Hours from Stadt Zürich pages (bundled offline). Confirm before you go — seasonal closures apply.</string>
+    <string name="session_hours_any_weather">any weather</string>
+    <string name="session_hours_fair_weather">fair weather only</string>
+    <string name="session_pick_pool_hint">Pick a Zurich Hallenbad or Sommerbad above. Your choice is saved on this phone and used as the session place.</string>
+
     <string name="privacy_title">Privacy &amp; permissions</string>
+
     <string name="privacy_open">Why we need access</string>
     <string name="privacy_body">SwimWeek shows your weekly swimming distance from Health Connect. Data stays on this phone. We do not upload workouts to a server, and this app does not use the internet.</string>
     <string name="privacy_permissions_list">We request read access to:\n• Exercise sessions (to find pool and open-water swims)\n• Distance (to total meters for those sessions)\n• Background read (optional, for the home-screen widget)\n\nWe never write workouts and do not request health history beyond the platform default window.</string>

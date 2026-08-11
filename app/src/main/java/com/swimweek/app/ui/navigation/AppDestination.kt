@@ -6,4 +6,7 @@ enum class AppDestination {
     SETTINGS,
     DIAGNOSTICS,
     ONBOARDING_REPLAY,
+    SESSION_DETAILS,
+    POOL_RECOMMENDATIONS,
+    POOL_DETAILS,
 }

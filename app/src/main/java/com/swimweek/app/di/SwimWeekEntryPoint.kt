@@ -1,6 +1,7 @@
 package com.swimweek.app.di
 
 import android.content.Context
+import com.swimweek.app.alert.PoolReminderScheduler
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.SummaryCacheStore
 import dagger.hilt.EntryPoint
@@ -9,7 +10,7 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 
 /**
- * Entry point for non-Hilt contexts (Glance widgets).
+ * Entry point for non-Hilt contexts (Glance widgets, boot receiver).
  * Do not @Inject into GlanceAppWidget constructors.
  */
 @EntryPoint
@@ -17,6 +18,7 @@ import dagger.hilt.components.SingletonComponent
 interface SwimWeekEntryPoint {
     fun summaryCacheStore(): SummaryCacheStore
     fun preferencesStore(): PreferencesStore
+    fun poolReminderScheduler(): PoolReminderScheduler
 }
 
 fun Context.swimWeekEntryPoint(): SwimWeekEntryPoint =

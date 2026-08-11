@@ -3,6 +3,7 @@ package com.swimweek.app.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.swimweek.app.data.PreferencesStore
+import com.swimweek.app.data.SessionPlaceStore
 import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.domain.DistanceUnit
 import com.swimweek.app.domain.WeekStatPoint
@@ -23,6 +24,8 @@ data class HomeUiState(
     val summary: WeeklySwimSummary? = null,
     val preferences: UserPreferences = UserPreferences(),
     val weekStats: List<WeekStatPoint> = emptyList(),
+    /** sessionId → pool display name for list rows */
+    val sessionPlaces: Map<String, String> = emptyMap(),
     val loading: Boolean = false,
     val refreshing: Boolean = false,
     val errorMessage: String? = null,
@@ -34,6 +37,7 @@ data class HomeUiState(
 class HomeViewModel @Inject constructor(
     private val repository: SwimDistanceRepository,
     private val preferencesStore: PreferencesStore,
+    private val sessionPlaceStore: SessionPlaceStore,
     private val syncScheduler: SyncScheduler,
 ) : ViewModel() {
 
@@ -44,13 +48,15 @@ class HomeViewModel @Inject constructor(
         repository.summaryFlow,
         preferencesStore.preferencesFlow,
         repository.weeklyHistoryFlow,
-        refreshing,
-        error,
-    ) { summary, prefs, history, isRefreshing, err ->
+        sessionPlaceStore.placesFlow,
+        combine(refreshing, error) { r, e -> r to e },
+    ) { summary, prefs, history, places, refreshErr ->
+        val (isRefreshing, err) = refreshErr
         HomeUiState(
             summary = summary,
             preferences = prefs,
             weekStats = history,
+            sessionPlaces = places.mapValues { it.value.poolName },
             loading = summary == null && isRefreshing,
             refreshing = isRefreshing,
             errorMessage = err,

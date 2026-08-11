@@ -30,6 +30,11 @@ data class UserPreferences(
     val onboardingCompleted: Boolean = false,
     /** Weekly swim target in meters; 0 = unset (no progress ring). */
     val weeklyTargetMeters: Double = 0.0,
+    /**
+     * When true, schedule a notification 1.5h before the evening pool
+     * that stays open longest closes.
+     */
+    val eveningPoolReminderEnabled: Boolean = true,
     val schemaVersion: Int = 1,
 )
 
@@ -49,6 +54,7 @@ class PreferencesStore @Inject constructor(
             } ?: DistanceUnit.defaultForLocale(Locale.getDefault()),
             onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false,
             weeklyTargetMeters = prefs[Keys.WEEKLY_TARGET_METERS] ?: 0.0,
+            eveningPoolReminderEnabled = prefs[Keys.EVENING_POOL_REMINDER] ?: true,
             schemaVersion = prefs[Keys.SCHEMA_VERSION] ?: 1,
         )
     }
@@ -75,11 +81,16 @@ class PreferencesStore @Inject constructor(
         dataStore.edit { it[Keys.WEEKLY_TARGET_METERS] = sanitized }
     }
 
+    suspend fun setEveningPoolReminderEnabled(enabled: Boolean) {
+        dataStore.edit { it[Keys.EVENING_POOL_REMINDER] = enabled }
+    }
+
     private object Keys {
         val WEEK_START = stringPreferencesKey("week_start")
         val DISTANCE_UNIT = stringPreferencesKey("distance_unit")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         val WEEKLY_TARGET_METERS = doublePreferencesKey("weekly_target_meters")
+        val EVENING_POOL_REMINDER = booleanPreferencesKey("evening_pool_reminder")
         val SCHEMA_VERSION = intPreferencesKey("schema_version")
     }
 }

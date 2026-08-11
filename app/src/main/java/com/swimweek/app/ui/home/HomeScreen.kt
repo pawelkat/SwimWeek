@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +38,10 @@ import com.swimweek.app.ui.components.SwimIconWithProgress
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.LengthFormat
 import com.swimweek.app.widget.SwimWeekWidgetReceiver
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Locale
 import kotlin.math.roundToInt
 
 @Composable
@@ -44,6 +49,8 @@ fun HomeScreen(
     onOpenOnboarding: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenDiagnostics: () -> Unit,
+    onOpenSession: (sessionId: String) -> Unit = {},
+    onOpenPoolRecommendations: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -174,6 +181,62 @@ fun HomeScreen(
             modifier = Modifier.fillMaxWidth(),
         )
 
+        val sessions = summary?.sessions.orEmpty()
+        if (sessions.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(28.dp))
+            Text(
+                text = stringResource(R.string.home_sessions_heading),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.home_sessions_hint),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            val zone = ZoneId.systemDefault()
+            val dateFmt = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(Locale.getDefault())
+            val timeFmt = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+                .withLocale(Locale.getDefault())
+            sessions.forEach { session ->
+                val startZ = session.start.atZone(zone)
+                val placeName = state.sessionPlaces[session.id]
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onOpenSession(session.id) }
+                        .padding(vertical = 10.dp),
+                ) {
+                    Text(
+                        text = placeName
+                            ?: stringResource(R.string.session_pool_unset),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = if (placeName != null) {
+                            MaterialTheme.colorScheme.onBackground
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                    )
+                    Text(
+                        text = buildString {
+                            append(dateFmt.format(startZ))
+                            append(" · ")
+                            append(timeFmt.format(startZ))
+                            append(" · ")
+                            append(LengthFormat.format(session.distanceMeters, state.distanceUnit))
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
+
         Spacer(modifier = Modifier.height(32.dp))
         Button(
             onClick = { viewModel.refresh() },
@@ -187,6 +250,13 @@ fun HomeScreen(
                     stringResource(R.string.home_refresh)
                 },
             )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = onOpenPoolRecommendations,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.home_pool_recommendations))
         }
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedButton(

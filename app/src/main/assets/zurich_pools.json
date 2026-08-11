@@ -1,0 +1,3837 @@
+{
+  "source": {
+    "hallenbaeder": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder.html",
+    "sommerbaeder": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder.html",
+    "retrieved_at": "2026-08-10",
+    "note": "Opening hours scraped from Stadt Zürich public pages for offline session planning. Verify on site before visiting; seasonal hours change.",
+    "seasonYear": 2026
+  },
+  "pools": [
+    {
+      "id": "altstetten",
+      "name": "Hallenbad Altstetten",
+      "kind": "hallenbad",
+      "category": "indoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/altstetten.html",
+      "description": "Das Hallenbad Altstetten ist ein Familienbad mit Wellnessbereich in der Nähe vom Farbhof und wird von der Betriebsgenossenschaft Hallenbad Altstetten betrieben.",
+      "schedules": [],
+      "hours_text": "sowie Details zum Hallenbad Altstetten\"/>\n        html:not(.hydrated) {\n            visibility: hidden;\n        }\n        window.addEventListener('appload', () => {\n            document.getElementsByTagName('html')[0].classList.add('hydrated');\n        });\n    <scrip",
+      "openingHours": [],
+      "externalUrl": "https://bad-altstetten.ch/",
+      "hoursNote": "Opening hours maintained on bad-altstetten.ch (external operator).",
+      "selectable": true
+    },
+    {
+      "id": "blaesi",
+      "name": "Hallenbad Bläsi",
+      "kind": "hallenbad",
+      "category": "indoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/blaesi.html",
+      "description": "Das Hallenbad Bläsi ist ein kleines, familiäres Bad in Höngg, mit Kinderspielnachmittag, 1-Meter-Sprungbrett und Liegeterrasse im Freien.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "12–19 Uhr"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "9–20 Uhr"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "9–19 Uhr\n14–16.30 Uhr Kinderspielnachmittag"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "9–22 Uhr"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "9–19 Uhr"
+            },
+            {
+              "Wochentag": "Samstag, Sonntag\n(und Feiertage)",
+              "Zeit": "9–16 Uhr Mai–September\n9–18 Uhr Oktober–April"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Montag, 27. Juli, bis und mit Sonntag, 16. August, Bad geschlossen (Revisionsarbeiten). Revisionsarbeiten aller Hallenbäder in der Übersicht."
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "12:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "12-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "09:00",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "9-20 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "09:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "9-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "14:00",
+          "close": "16:30",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "14-16.30 Uhr",
+          "note": "Kinderspielnachmittag"
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "09:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "9-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "09:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "9-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sat",
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "16:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag, Sonntag\n(und Feiertage)",
+          "timeText": "9-16 Uhr",
+          "note": "Mai-September"
+        },
+        {
+          "period": null,
+          "days": [
+            "sat",
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag, Sonntag\n(und Feiertage)",
+          "timeText": "9-18 Uhr",
+          "note": "Oktober-April"
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "bungertwies",
+      "name": "Hallenbad Bungertwies",
+      "kind": "hallenbad",
+      "category": "indoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/bungertwies.html",
+      "description": "Das Hallenbad Bungertwies ist ein kleines, familiäres Bad in Hottingen, mit Kinderspielnachmittag, 1-Meter-Sprungbrett und Liegeterrasse.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag1",
+              "Zeit": "12–13.30 Uhr\n16–19 Uhr"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "12–13.30 Uhr\n16–19 Uhr"
+            },
+            {
+              "Wochentag": "Mittwoch2",
+              "Zeit": "12–14 Uhr\n14–16 Uhr Kinderspielnachmittag\n16–19 Uhr"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "12.30–19 Uhr"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "kein öffentliches Schwimmen"
+            },
+            {
+              "Wochentag": "Samstag",
+              "Zeit": "kein öffentliches Schwimmen"
+            },
+            {
+              "Wochentag": "Sonntag\n(und Feiertage3)",
+              "Zeit": "9–16 Uhr"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "1 16–16.45 Uhr stehen nur zwei Bahnen zur Verfügung\n2 13.30–16 Uhr finden Kinderschwimmkurse statt\n3 Karfreitag geschlossen"
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "12:00",
+          "close": "13:30",
+          "condition": null,
+          "audience": null,
+          "label": "Montag1",
+          "timeText": "12-13.30 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "16:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag1",
+          "timeText": "16-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "12:00",
+          "close": "13:30",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "12-13.30 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "16:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "16-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "12:00",
+          "close": "14:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch2",
+          "timeText": "12-14 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "14:00",
+          "close": "16:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch2",
+          "timeText": "14-16 Uhr",
+          "note": "Kinderspielnachmittag"
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "16:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch2",
+          "timeText": "16-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "12:30",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "12.30-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": null,
+          "close": null,
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "kein öffentliches Schwimmen",
+          "note": "kein öffentliches Schwimmen"
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": null,
+          "close": null,
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "kein öffentliches Schwimmen",
+          "note": "kein öffentliches Schwimmen"
+        },
+        {
+          "period": null,
+          "days": [
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "16:00",
+          "condition": null,
+          "audience": null,
+          "label": "Sonntag\n(und Feiertage3)",
+          "timeText": "9-16 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "city",
+      "name": "Hallenbad City",
+      "kind": "hallenbad",
+      "category": "indoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/city.html",
+      "description": "Das Hallenbad City liegt im Kreis 1 beim Schanzengraben, hat eine grosse, helle Schwimmhalle mit Glasdach und ist ein beliebtes Sportbad mit Sauna.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag–Sonntag",
+              "Zeit": "6–22 Uhr"
+            }
+          ]
+        },
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Anspruchsgruppe"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "8–22 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "8–14 Uhr\n14–22 Uhr",
+              "Anspruchsgruppe": "Frauen\ngemischt"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "8–22 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "8–18 Uhr\n18–22 Uhr",
+              "Anspruchsgruppe": "gemischt\nFrauen"
+            },
+            {
+              "Wochentag": "Freitag–Sonntag",
+              "Zeit": "8–22 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "open": "06:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag–Sonntag",
+          "timeText": "6-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "08:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Montag",
+          "timeText": "8-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "08:00",
+          "close": "14:00",
+          "condition": null,
+          "audience": "Frauen",
+          "label": "Dienstag",
+          "timeText": "8-14 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "14:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Dienstag",
+          "timeText": "14-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "08:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Mittwoch",
+          "timeText": "8-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "08:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Donnerstag",
+          "timeText": "8-18 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "18:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": "Frauen",
+          "label": "Donnerstag",
+          "timeText": "18-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "open": "08:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Freitag–Sonntag",
+          "timeText": "8-22 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "leimbach",
+      "name": "Hallenbad Leimbach",
+      "kind": "hallenbad",
+      "category": "indoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/leimbach.html",
+      "description": "Das Hallenbad Leimbach ist ein familiäres Bad mit Planschbecken, Wasserspielplatz auf der Dachterrasse, Sauna und Dampfbad.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "6–8 Uhr\n12–21 Uhr"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "6–8 Uhr\n12–21 Uhr"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "6–21 Uhr"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "6–8 Uhr\n12–21 Uhr"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "6–8 Uhr\n12–21 Uhr"
+            },
+            {
+              "Wochentag": "Samstag",
+              "Zeit": "9–18 Uhr\n9–14 Uhr Familienschwimmen\n14.30–18 Uhr Sportschwimmen"
+            },
+            {
+              "Wochentag": "Sonntag (und Feiertage)",
+              "Zeit": "9–18 Uhr"
+            }
+          ]
+        },
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Anspruchsgruppe"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "12–21 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "12–21 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "12–21 Uhr",
+              "Anspruchsgruppe": "Frauen"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "12–21 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "12–21 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Samstag",
+              "Zeit": "9–18 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            },
+            {
+              "Wochentag": "Sonntag\n(und Feiertage)",
+              "Zeit": "9–18 Uhr",
+              "Anspruchsgruppe": "gemischt"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "06:00",
+          "close": "08:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "6-8 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "06:00",
+          "close": "08:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "6-8 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "06:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "6-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "06:00",
+          "close": "08:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "6-8 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "06:00",
+          "close": "08:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "6-8 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "9-18 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "09:00",
+          "close": "14:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "9-14 Uhr",
+          "note": "Familienschwimmen"
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "14:30",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "14.30-18 Uhr",
+          "note": "Sportschwimmen"
+        },
+        {
+          "period": null,
+          "days": [
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Sonntag (und Feiertage)",
+          "timeText": "9-18 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Montag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Dienstag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": "Frauen",
+          "label": "Mittwoch",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Donnerstag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "12:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Freitag",
+          "timeText": "12-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Samstag",
+          "timeText": "9-18 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": "gemischt",
+          "label": "Sonntag\n(und Feiertage)",
+          "timeText": "9-18 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "oerlikon",
+      "name": "Hallenbad Oerlikon",
+      "kind": "hallenbad",
+      "category": "indoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/oerlikon.html",
+      "description": "Das Hallenbad Oerlikon befindet sich in der Nähe von Hallenstadion und offener Rennbahn und ist ein ideales Sportbad.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "6–20 Uhr"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "6–20 Uhr"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "6–22 Uhr\n14–16 Uhr Kinderspielnachmittag"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "6–20 Uhr"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "6–22 Uhr"
+            },
+            {
+              "Wochentag": "Samstag",
+              "Zeit": "6–22 Uhr"
+            },
+            {
+              "Wochentag": "Sonntag",
+              "Zeit": "6–22 Uhr"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "06:00",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "6-20 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "06:00",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "6-20 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "06:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "6-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "14:00",
+          "close": "16:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "14-16 Uhr",
+          "note": "Kinderspielnachmittag"
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "06:00",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "6-20 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "06:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "6-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "06:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "6-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sun"
+          ],
+          "open": "06:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Sonntag",
+          "timeText": "6-22 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "kaeferberg",
+      "name": "Wärmebad Käferberg",
+      "kind": "waermebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/kaeferberg.html",
+      "description": "Das Wärmebad Käferberg liegt zwischen dem Gesundheitszentrum für das Alter Käferberg und Stadtspital Waid und besticht durch seine Aussicht über die Stadt Zürich.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "11–15 Uhr"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "6.30–15 Uhr\n15–16.30 Uhr: Nur für Personen, die schwimmen können1\n18–22 Uhr: Nur für Erwachsene"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "6.30–15 Uhr\n18–19.30 Uhr: Nur für Erwachsene\n19.30–22 Uhr: Nur für Erwachsene, die schwimmen können2"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "6.30–8 Uhr\n11–15 Uhr\n15–17 Uhr: Nur für Personen, die schwimmen können1\n17–18 Uhr: Nur für Personen, die schwimmen können2\n18–22 Uhr: Nur für Erwachsene, die schwimmen können3"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "6.30–8 Uhr\n8–11 Uhr: Nur für Personen, die schwimmen können1\n11–22 Uhr"
+            },
+            {
+              "Wochentag": "Samstag",
+              "Zeit": "9–16 Uhr (Mai–September)\n9–18 Uhr (Oktober–April)"
+            },
+            {
+              "Wochentag": "Sonntag\n(und Feiertage)",
+              "Zeit": "9–16 Uhr (Mai–September)\n9–18 Uhr (Oktober–April)"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "11:00",
+          "close": "15:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "11-15 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "06:30",
+          "close": "15:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "6.30-15 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "15:00",
+          "close": "16:30",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "15-16.30 Uhr",
+          "note": ": Nur für Personen, die schwimmen können1"
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "18:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "18-22 Uhr",
+          "note": ": Nur für Erwachsene"
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "06:30",
+          "close": "15:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "6.30-15 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "18:00",
+          "close": "19:30",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "18-19.30 Uhr",
+          "note": ": Nur für Erwachsene"
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "19:30",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "19.30-22 Uhr",
+          "note": ": Nur für Erwachsene, die schwimmen können2"
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "06:30",
+          "close": "08:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "6.30-8 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "11:00",
+          "close": "15:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "11-15 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "15:00",
+          "close": "17:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "15-17 Uhr",
+          "note": ": Nur für Personen, die schwimmen können1"
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "17:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "17-18 Uhr",
+          "note": ": Nur für Personen, die schwimmen können2"
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "18:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "18-22 Uhr",
+          "note": ": Nur für Erwachsene, die schwimmen können3"
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "06:30",
+          "close": "08:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "6.30-8 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "08:00",
+          "close": "11:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "8-11 Uhr",
+          "note": ": Nur für Personen, die schwimmen können1"
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "11:00",
+          "close": "22:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "11-22 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "09:00",
+          "close": "16:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "9-16 Uhr",
+          "note": "(Mai-September)"
+        },
+        {
+          "period": null,
+          "days": [
+            "sat"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Samstag",
+          "timeText": "9-18 Uhr",
+          "note": "(Oktober-April)"
+        },
+        {
+          "period": null,
+          "days": [
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "16:00",
+          "condition": null,
+          "audience": null,
+          "label": "Sonntag\n(und Feiertage)",
+          "timeText": "9-16 Uhr",
+          "note": "(Mai-September)"
+        },
+        {
+          "period": null,
+          "days": [
+            "sun"
+          ],
+          "open": "09:00",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Sonntag\n(und Feiertage)",
+          "timeText": "9-18 Uhr",
+          "note": "(Oktober-April)"
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "aemtler",
+      "name": "Schulschwimmanlage Aemtler",
+      "kind": "schulschwimmanlage",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/aemtler.html",
+      "description": "Die Schulschwimmanlage liegt in der Nähe des Idaplatzes und bietet an drei Abenden öffentliches Schwimmen, teilweise nur für Frauen und Mädchen.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Angebot"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "18.45–19.30 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Frauen und Mädchen, Tiefe 135 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "19.30–20.15 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene und Kinder, Tiefe 135 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "20.15–21 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene, Tiefe 135 cm)"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "17.15–19.00 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Mädchen, Tiefe 125 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "19.00–21.00 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Frauen, Tiefe 135 cm)"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "16.00–19.00 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Frauen und Mädchen, Tiefe 135 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "19.00–21.00 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Frauen, Tiefe 135 cm)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Die Schulschwimmanlage ist während den Schulferien und an schulfreien Tagen geschlossen"
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "18:45",
+          "close": "19:30",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "18.45-19.30 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "19:30",
+          "close": "20:15",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "19.30-20.15 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "20:15",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "20.15-21 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "17:15",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "17.15-19.00 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "19:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "19.00-21.00 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "16:00",
+          "close": "19:00",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "16.00-19.00 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "19:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "19.00-21.00 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "altweg",
+      "name": "Schulschwimmanlage Altweg",
+      "kind": "schulschwimmanlage",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/altweg.html",
+      "description": "Die Schulschwimmanlage liegt in der Nähe vom Triemli und bietet am Dienstag öffentliches Schwimmen.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Angebot"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "18.15–19.30 Uhr",
+              "Angebot": "Öffentliches Schwimmen (offen für Erwachsene, Tiefe 135 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "20–21 Uhr",
+              "Angebot": "Öffentliches Schwimmen (offen für trans und nicht-binäre Personen ab 16 Jahren, Tiefe 135 cm)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Die Schulschwimmanlage ist während den Schulferien und an schulfreien Tagen geschlossen"
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "18:15",
+          "close": "19:30",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "18.15-19.30 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "20:00",
+          "close": "21:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "20-21 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "borrweg",
+      "name": "Schulschwimmanlage Borrweg",
+      "kind": "schulschwimmanlage",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/borrweg.html",
+      "description": "Die Schulschwimmanlage liegt im Quartier Friesenberg und bietet am Dienstag öffentliches Schwimmen.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Angebot"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "16.30–18.30Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene und Kinder, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "18.30–20.00 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene, Tiefe 120 cm)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Die Schulschwimmanlage ist während den Schulferien und an schulfreien Tagen geschlossen"
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "16:30",
+          "close": "18:30",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "16.30-18.30Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "18:30",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "18.30-20.00 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "riedtli",
+      "name": "Schulschwimmanlage Riedtli",
+      "kind": "schulschwimmanlage",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/riedtli.html",
+      "description": "Die Schulschwimmanlage liegt in der Nähe vom Schaffhauserplatz und bietet an zwei Abenden öffentliches Schwimmen, teilweise nur für Frauen und Mädchen.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Angebot"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "16.30–18 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Kinder nur mit Erwachsenen, Tiefe 90 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "18–20 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "Donnerstag",
+              "Zeit": "18.00–20 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Frauen und Mädchen, Tiefe 120 cm)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Die Schulschwimmanlage ist während den Schulferien und an schulfreien Tagen geschlossen"
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "16:30",
+          "close": "18:00",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "16.30-18 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "18:00",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "18-20 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "thu"
+          ],
+          "open": "18:00",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": "Donnerstag",
+          "timeText": "18.00-20 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "tannenrauch",
+      "name": "Schulschwimmanlage Tannenrauch",
+      "kind": "schulschwimmanlage",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/hallenbaeder/tannenrauch.html",
+      "description": "Die Schulschwimmanlage liegt in der Nähe vom Morgental und bietet am Montag, Dienstag, Mittwoch und Freitag öffentliches Schwimmen.",
+      "schedules": [
+        {
+          "columns": [
+            "Wochentag",
+            "Zeit",
+            "Angebot"
+          ],
+          "entries": [
+            {
+              "Wochentag": "Montag",
+              "Zeit": "18–19.30 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene und Kinder, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "Dienstag",
+              "Zeit": "18.30–20.15 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "Mittwoch",
+              "Zeit": "12.30–14 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "14–15.45 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene und Kinder, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "Freitag",
+              "Zeit": "16–17.30 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene, Tiefe 120 cm)"
+            },
+            {
+              "Wochentag": "",
+              "Zeit": "17.30–20 Uhr",
+              "Angebot": "Öffentliches Schwimmen (für Erwachsene und Kinder, Tiefe 120 cm)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Die Schulschwimmanlage ist während den Schulferien und an schulfreien Tagen geschlossen"
+      ],
+      "openingHours": [
+        {
+          "period": null,
+          "days": [
+            "mon"
+          ],
+          "open": "18:00",
+          "close": "19:30",
+          "condition": null,
+          "audience": null,
+          "label": "Montag",
+          "timeText": "18-19.30 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "tue"
+          ],
+          "open": "18:30",
+          "close": "20:15",
+          "condition": null,
+          "audience": null,
+          "label": "Dienstag",
+          "timeText": "18.30-20.15 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "wed"
+          ],
+          "open": "12:30",
+          "close": "14:00",
+          "condition": null,
+          "audience": null,
+          "label": "Mittwoch",
+          "timeText": "12.30-14 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "14:00",
+          "close": "15:45",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "14-15.45 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": [
+            "fri"
+          ],
+          "open": "16:00",
+          "close": "17:30",
+          "condition": null,
+          "audience": null,
+          "label": "Freitag",
+          "timeText": "16-17.30 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "17:30",
+          "close": "20:00",
+          "condition": null,
+          "audience": null,
+          "label": null,
+          "timeText": "17.30-20 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "allenmoos",
+      "name": "Freibad Allenmoos",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/allenmoos.html",
+      "description": "Das Freibad Allenmoos der Architekten Haefeli und Moser ist ein Familienbad mit einer parkartigen Grünanlage. Es befindet sich im Quartier Unterstrass.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "auhof",
+      "name": "Freibad Auhof",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/auhof.html",
+      "description": "Das Freibad Auhof liegt in Schwamendingen. Es ist ein Familienbad mit Rutschbahn, Planschbecken mit Sonnenschirm und Grillstellen.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–27. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "dolder",
+      "name": "Freibad Dolder",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/dolder.html",
+      "description": "Das Freibad Dolder liegt bei der Bergstation Dolderbahn und wird von der Dolder Eis und Bad betrieben. Es hat ein 50-Meter-Becken, Planschbecken und Spielwiese.",
+      "schedules": [],
+      "hours_text": "sowie Details zum Freibad Dolder\"/>\n        html:not(.hydrated) {\n            visibility: hidden;\n        }\n        window.addEventListener('appload', () => {\n            document.getElementsByTagName('html')[0].classList.add('hydrated');\n        });\n    <script type=\"module\" src=\"/etc.",
+      "openingHours": [],
+      "externalUrl": "https://www.doldersports.com/",
+      "hoursNote": "Opening hours on doldersports.com (external operator).",
+      "selectable": true
+    },
+    {
+      "id": "heuried",
+      "name": "Freibad Heuried",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/heuried.html",
+      "description": "Das Freibad Heuried liegt in der Nähe vom Triemli. Es ist ein Familienbad mit langer Rutschbahn, Planschbecken mit Wasserspielen und Grillstellen.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "letzigraben",
+      "name": "Freibad Letzigraben",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/letzigraben.html",
+      "description": "Das Freibad Letzigraben von Max Frisch ist ein Familienbad mit einer parkartigen Grünanlage. Es liegt gleich neben dem Stadion Letzigrund.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "1.–8. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–19 Uhr"
+            },
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "7–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "7–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–27. September",
+              "Öffnungszeiten bei jedem Wetter": "7–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Samstag, 22. August, 6–13 Uhr, Sprungbecken geschlossen (Swiss Triathlon Regio League)"
+      ],
+      "openingHours": [
+        {
+          "period": "1.–8. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "1.–8. Mai",
+          "timeText": "7-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "20:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "7-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "07:00",
+          "close": "21:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "7-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "07:00",
+          "close": "20:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "7-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "07:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "7-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "seebach",
+      "name": "Freibad Seebach",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/seebach.html",
+      "description": "Das Freibad Seebach ist ein Familienbad mit Rutschbahn, Planschbecken mit Schifflibach und Grillstellen.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "11.–30. April",
+              "Öffnungszeiten bei jedem Wetter": "9–19 Uhr2"
+            },
+            {
+              "Zeitraum": "1.–8. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–19 Uhr"
+            },
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "7–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "7–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–27. September",
+              "Öffnungszeiten bei jedem Wetter": "7–19 Uhr1"
+            },
+            {
+              "Zeitraum": "28. September–25. Oktober",
+              "Öffnungszeiten bei jedem Wetter": "9–18 Uhr1, 2"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "11.–30. April",
+          "days": null,
+          "open": "09:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "11.–30. April",
+          "timeText": "9-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "1.–8. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "1.–8. Mai",
+          "timeText": "7-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "20:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "7-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "07:00",
+          "close": "21:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "7-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "07:00",
+          "close": "20:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "7-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "07:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "7-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "28. September–25. Oktober",
+          "days": null,
+          "open": "09:00",
+          "close": "18:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "28. September–25. Oktober",
+          "timeText": "9-18 Uhr",
+          "note": "2"
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "zwischen-den-hoelzern",
+      "name": "Freibad Zwischen den Hölzern",
+      "kind": "freibad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/zwischen-den-hoelzern.html",
+      "description": "Das Freibad Zwischen den Hölzern liegt in der Nähe vom Frankental. Es ist ein Familienbad mit Planschbecken, einem Beachvolleyballfeld und Grillstellen.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Die Drehpyramide auf dem Spielplatz darf nicht genutzt werden. Sie wird im Winterhalbjahr repariert, so dass sie ab  Saison 2027 wieder zugänglich ist."
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "enge",
+      "name": "Seebad Enge",
+      "kind": "seebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/enge.html",
+      "description": "Das Seebad Enge liegt in der Nähe vom Bürkliplatz und wird von der Tonttu GmbH betrieben. Es hat einen Frauenbereich und Schwimmbahnen im See.",
+      "schedules": [],
+      "hours_text": "sowie Details zum Seebad Enge\"/>\n        html:not(.hydrated) {\n            visibility: hidden;\n        }\n        window.addEventListener('appload', () => {\n            document.getElementsByTagName('html')[0].classList.add('hydrated');\n        });\n    <script type=\"module\" src=\"/etc.",
+      "openingHours": [],
+      "externalUrl": "https://www.seebadenge.ch/",
+      "hoursNote": "Opening hours on seebadenge.ch (external operator).",
+      "selectable": true
+    },
+    {
+      "id": "katzensee",
+      "name": "Seebad Katzensee",
+      "kind": "seebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/katzensee.html",
+      "description": "Das Seebad Katzensee liegt in Zürich-Affoltern in einem Naturschutzgebiet. Es ist ein Gratisbad mit grosser Liegewiese und Grillstellen.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "utoquai",
+      "name": "Seebad Utoquai",
+      "kind": "seebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/utoquai.html",
+      "description": "Das Seebad Utoquai ist nur für Schwimmer*innen. Es liegt in der Nähe vom Bellevue und hat separate Liegebereiche mit Sonnenterassen für Frauen und Männer.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "11.–30. April",
+              "Öffnungszeiten bei jedem Wetter": "9–19 Uhr"
+            },
+            {
+              "Zeitraum": "1.–8. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–19 Uhr"
+            },
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "7–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "7–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–27. September",
+              "Öffnungszeiten bei jedem Wetter": "7–19 Uhr1"
+            },
+            {
+              "Zeitraum": "28. September–25. Oktober",
+              "Öffnungszeiten bei jedem Wetter": "9–18 Uhr1"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Am Samstag, 8. August, findet die Streetparade statt. Aus diesem Grund ist das Bad ab 12 Uhr geschlossen."
+      ],
+      "openingHours": [
+        {
+          "period": "11.–30. April",
+          "days": null,
+          "open": "09:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "11.–30. April",
+          "timeText": "9-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "1.–8. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "1.–8. Mai",
+          "timeText": "7-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "20:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "7-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "07:00",
+          "close": "21:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "7-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "07:00",
+          "close": "20:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "7-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "07:00",
+          "close": "19:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "7-19 Uhr",
+          "note": null
+        },
+        {
+          "period": "28. September–25. Oktober",
+          "days": null,
+          "open": "09:00",
+          "close": "18:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "28. September–25. Oktober",
+          "timeText": "9-18 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "mythenquai",
+      "name": "Strandbad Mythenquai",
+      "kind": "seebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/mythenquai.html",
+      "description": "Das Strandbad Mythenquai ist ein Familienbad mit Sandstrand, Nichtschwimmbereich im See und Sprungturm.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "7–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "7–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "7–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–27. September",
+              "Öffnungszeiten bei jedem Wetter": "7–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        },
+        {
+          "columns": [
+            "Badbereich",
+            "Zeit",
+            ""
+          ],
+          "entries": [
+            {
+              "Badbereich": "Strandabschnitt",
+              "Zeit": "Täglich ab 7 Uhr geöffnet",
+              "col2": ""
+            },
+            {
+              "Badbereich": "Wiese",
+              "Zeit": "Montag bis Freitag ab 9 Uhr geöffnet\nSamstag und Sonntag ab 7 Uhr geöffnet",
+              "col2": ""
+            },
+            {
+              "Badbereich": "Planschbecken",
+              "Zeit": "Täglich ab 9 Uhr geöffnet",
+              "col2": ""
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "07:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "7-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "07:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "7-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "07:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "7-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "07:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "7-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "07:00",
+          "close": null,
+          "condition": null,
+          "audience": null,
+          "label": "Strandabschnitt",
+          "timeText": "Täglich ab 7 Uhr geöffnet",
+          "note": "Täglich ab 7 Uhr geöffnet"
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "09:00",
+          "close": null,
+          "condition": null,
+          "audience": null,
+          "label": "Wiese",
+          "timeText": "Montag bis Freitag ab 9 Uhr geöffnet",
+          "note": "Montag bis Freitag ab 9 Uhr geöffnet"
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "07:00",
+          "close": null,
+          "condition": null,
+          "audience": null,
+          "label": "Wiese",
+          "timeText": "Samstag und Sonntag ab 7 Uhr geöffnet",
+          "note": "Samstag und Sonntag ab 7 Uhr geöffnet"
+        },
+        {
+          "period": null,
+          "days": null,
+          "open": "09:00",
+          "close": null,
+          "condition": null,
+          "audience": null,
+          "label": "Planschbecken",
+          "timeText": "Täglich ab 9 Uhr geöffnet",
+          "note": "Täglich ab 9 Uhr geöffnet"
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "tiefenbrunnen",
+      "name": "Strandbad Tiefenbrunnen",
+      "kind": "seebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/tiefenbrunnen.html",
+      "description": "Das Strandbad Tiefenbrunnen ist ein Familienbad mit grosszügiger Grünanlage, Rutschbahn, Nichtschwimmbereich im See und Sprungturm.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–27. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Der 5-Meter-Sprungturm ist gesperrt (Sanierung in der Wintersaison 2026/27). 3-Meter- und 1-Meter-Sprungbrett sind regulär zugänglich."
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–27. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–27. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "wollishofen",
+      "name": "Strandbad Wollishofen",
+      "kind": "seebad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/wollishofen.html",
+      "description": "Das Strandbad Wollishofen ist ein Familienbad mit Nichtschwimmbereich im See. Es hat ein Floss, eine Liegewiese und Terrasse mit Holzrost.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "au-hoengg",
+      "name": "Flussbad Au-Höngg",
+      "kind": "flussbad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/au-hoengg.html",
+      "description": "Das Flussbad Au-Höngg liegt auf der Werdinsel. Es ist in ein Gratisbad und hat Grillstellen, Planschbecken und einen Spielplatz.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "14.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "14.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "14.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "14.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "14.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "oberer-letten",
+      "name": "Flussbad Oberer Letten",
+      "kind": "flussbad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/oberer-letten.html",
+      "description": "Das Flussbad Oberer Letten ist nur für Schwimmer*innen. Es ist ein Gratisbad in der Nähe vom Limmatplatz.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Am Samstag, 15. August, findet das Limmatschwimmen statt (Verschiebedatum: 22. August). Der Badbetrieb im Oberen Letten ist an diesem Tag stark eingeschränkt. Badegästen, die Ruhe wünschen, empfehlen wir den Besuch eines anderen Bades. Betroffen ist auch das Frauenbad Stadthausquai. Dieses ist den ganzen Tag geschlossen und nur für Teilnehmer*innen des Limmatschwimmens zugänglich."
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "unterer-letten",
+      "name": "Flussbad Unterer Letten",
+      "kind": "flussbad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/unterer-letten.html",
+      "description": "Das Flussbad Unterer Letten ist in der Nähe vom Escher-Wyss-Platz. Es ist ein Gratisbad mit einem Schwimmbereich im Fluss und Nichtschwimmbecken.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9.–29. Mai",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr"
+            },
+            {
+              "Zeitraum": "30. Mai–16. August",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–21 Uhr1,2"
+            },
+            {
+              "Zeitraum": "17. August–6. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–20 Uhr1"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "9–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr1"
+            }
+          ]
+        }
+      ],
+      "openingHours": [
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9.–29. Mai",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9.–29. Mai",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "30. Mai–16. August",
+          "days": null,
+          "open": "14:00",
+          "close": "21:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "30. Mai–16. August",
+          "timeText": "14-21 Uhr",
+          "note": "2"
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "17. August–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "20:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. August–6. September",
+          "timeText": "14-20 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "09:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "9-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "stadthausquai",
+      "name": "Frauenbad Stadthausquai",
+      "kind": "flussbad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/stadthausquai.html",
+      "description": "Das Frauenbad Stadthausquai befindet in der Nähe von Bürkli- und Paradeplatz. Tagsüber ist es ein Bad nur für Frauen, abends eine Bar und offen für alle.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten bei jedem Wetter",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "9. Mai–6. September",
+              "Öffnungszeiten bei jedem Wetter": "7–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19.30 Uhr"
+            },
+            {
+              "Zeitraum": "7.–20. September",
+              "Öffnungszeiten bei jedem Wetter": "7–14 Uhr",
+              "Öffnungszeiten nur bei schönem Wetter": "14–19 Uhr"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "openingHours": [
+        {
+          "period": "9. Mai–6. September",
+          "days": null,
+          "open": "07:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "9. Mai–6. September",
+          "timeText": "7-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "9. Mai–6. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:30",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "9. Mai–6. September",
+          "timeText": "14-19.30 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "07:00",
+          "close": "14:00",
+          "condition": "any_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "7-14 Uhr",
+          "note": null
+        },
+        {
+          "period": "7.–20. September",
+          "days": null,
+          "open": "14:00",
+          "close": "19:00",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "7.–20. September",
+          "timeText": "14-19 Uhr",
+          "note": null
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "schanzengraben",
+      "name": "Männerbad Schanzengraben",
+      "kind": "flussbad",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/schanzengraben.html",
+      "description": "Das Männerbad Schanzengraben liegt im Stadtzentrum und wird privat betrieben. Tagsüber ist es ein Gratisbad nur für Männer, abends eine Bar und offen für alle.",
+      "schedules": [
+        {
+          "columns": [
+            "Zeitraum",
+            "Öffnungszeiten nur bei schönem Wetter"
+          ],
+          "entries": [
+            {
+              "Zeitraum": "17. Mai–11. September",
+              "Öffnungszeiten nur bei schönem Wetter": "11–18.30 Uhr (Sonntag–Freitag)"
+            },
+            {
+              "Zeitraum": "",
+              "Öffnungszeiten nur bei schönem Wetter": "11–18 Uhr (Samstag)"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Am Samstag, 8. August, findet die Streetparade statt. Aus diesem Grund bleibt das Bad ganztags geschlossen."
+      ],
+      "openingHours": [
+        {
+          "period": "17. Mai–11. September",
+          "days": null,
+          "open": "11:00",
+          "close": "18:30",
+          "condition": "fair_weather",
+          "audience": null,
+          "label": "17. Mai–11. September",
+          "timeText": "11-18.30 Uhr",
+          "note": "(Sonntag-Freitag)"
+        }
+      ],
+      "selectable": true
+    },
+    {
+      "id": "planschbecken",
+      "name": "Planschbecken",
+      "kind": "planschbecken",
+      "category": "outdoor",
+      "url": "https://www.stadt-zuerich.ch/de/stadtleben/sport-und-erholung/sport-und-badeanlagen/sommerbaeder/planschbecken.html",
+      "description": "Verteilt über die ganze Stadt gibt es mehrere Planschbecken. Diese sind je nach Wetter von Mai bis September in Betrieb. Die Nutzung der Planschbecken ist kostenlos.",
+      "schedules": [],
+      "openingHours": [],
+      "hoursNote": "Multiple paddling pools in parks; seasonal weather-dependent.",
+      "selectable": false
+    }
+  ],
+  "schemaVersion": 1
+}

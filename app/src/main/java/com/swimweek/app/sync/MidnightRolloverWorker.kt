@@ -6,6 +6,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.swimweek.app.BuildConfig
+import com.swimweek.app.alert.PoolReminderScheduler
 import com.swimweek.app.health.SwimDistanceRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -20,12 +21,14 @@ class MidnightRolloverWorker @AssistedInject constructor(
     @Assisted params: WorkerParameters,
     private val repository: SwimDistanceRepository,
     private val syncScheduler: SyncScheduler,
+    private val poolReminderScheduler: PoolReminderScheduler,
 ) : CoroutineWorker(appContext, params) {
 
     override suspend fun doWork(): Result {
         return try {
             repository.sync(SyncReason.MIDNIGHT)
             syncScheduler.scheduleMidnightRollover()
+            poolReminderScheduler.scheduleNext(afterNotification = false)
             Result.success()
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
@@ -33,6 +36,7 @@ class MidnightRolloverWorker @AssistedInject constructor(
             }
             // Still try to reschedule so we don't lose the cadence
             syncScheduler.scheduleMidnightRollover()
+            runCatching { poolReminderScheduler.scheduleNext(afterNotification = false) }
             if (runAttemptCount < 2) Result.retry() else Result.failure()
         }
     }
