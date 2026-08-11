@@ -26,7 +26,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 /**
- * Schedules [PoolReminderWorker] for 1.5h before the longest-open evening pool closes.
+ * Schedules [PoolReminderWorker] for [UserPreferences.reminderLeadMinutes]
+ * before the longest-open evening pool closes.
  * Uses WorkManager (no exact-alarm permission); delivery is best-effort.
  */
 @Singleton
@@ -59,10 +60,11 @@ class PoolReminderScheduler @Inject constructor(
 
         notifier.ensureChannel()
 
+        val leadMinutes = prefs.reminderLeadMinutes.toLong()
         val planned = if (afterNotification) {
-            planFromTomorrow()
+            planFromTomorrow(leadMinutes)
         } else {
-            planner.planNext()
+            planner.planNext(leadMinutes = leadMinutes)
         }
 
         if (planned == null) {
@@ -116,7 +118,7 @@ class PoolReminderScheduler @Inject constructor(
         }
     }
 
-    private fun planFromTomorrow(): PlannedPoolReminder? {
+    private fun planFromTomorrow(leadMinutes: Long): PlannedPoolReminder? {
         val zone = clockProvider.zoneId()
         val now = ZonedDateTime.ofInstant(clockProvider.now(), zone)
         val catalog = poolsRepository.getCatalog()
@@ -126,6 +128,7 @@ class PoolReminderScheduler @Inject constructor(
             fromDate = tomorrow,
             nowTime = LocalTime.MIN,
             seasonYear = catalog.seasonYear ?: tomorrow.year,
+            leadMinutes = leadMinutes,
         ) ?: return null
         return PlannedPoolReminder(
             poolId = selection.pool.id,

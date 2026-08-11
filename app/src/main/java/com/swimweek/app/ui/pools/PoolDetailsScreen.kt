@@ -1,6 +1,9 @@
 package com.swimweek.app.ui.pools
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,15 +23,20 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
+import com.swimweek.app.data.CrowdMonitorRepository
 import com.swimweek.app.data.FavoritePoolsStore
+import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.ZurichPoolsRepository
+import com.swimweek.app.domain.CrowdMonitorSnapshot
 import com.swimweek.app.domain.EveningPoolSelector
 import com.swimweek.app.domain.OpenPoolRecommender
 import com.swimweek.app.domain.OpeningHourSlot
@@ -52,12 +60,15 @@ data class PoolDetailsUiState(
     val notFound: Boolean = false,
     val openStatus: String? = null,
     val minutesUntilClose: Long? = null,
+    val crowd: CrowdMonitorSnapshot = CrowdMonitorSnapshot(),
 )
 
 @HiltViewModel
 class PoolDetailsViewModel @Inject constructor(
     private val poolsRepository: ZurichPoolsRepository,
     private val favoritePoolsStore: FavoritePoolsStore,
+    private val preferencesStore: PreferencesStore,
+    private val crowdMonitorRepository: CrowdMonitorRepository,
     private val clockProvider: ClockProvider,
 ) : ViewModel() {
 
@@ -66,7 +77,9 @@ class PoolDetailsViewModel @Inject constructor(
     val uiState: StateFlow<PoolDetailsUiState> = combine(
         poolIdFlow,
         favoritePoolsStore.favoriteIdsFlow,
-    ) { poolId, favorites ->
+        preferencesStore.preferencesFlow,
+        crowdMonitorRepository.snapshot,
+    ) { poolId, favorites, prefs, crowd ->
         if (poolId == null) return@combine PoolDetailsUiState(notFound = true)
         val pool = poolsRepository.findPool(poolId)
             ?: return@combine PoolDetailsUiState(notFound = true)
@@ -78,6 +91,7 @@ class PoolDetailsViewModel @Inject constructor(
             now = nowZ.toLocalTime(),
             favoriteIds = favorites,
             seasonYear = poolsRepository.getCatalog().seasonYear ?: nowZ.year,
+            minMinutesUntilClose = prefs.recommendMinMinutesUntilClose.toLong(),
             includeClosingSoon = true,
         )
         val open = recs.firstOrNull()
@@ -93,6 +107,7 @@ class PoolDetailsViewModel @Inject constructor(
             notFound = false,
             openStatus = openStatus,
             minutesUntilClose = open?.minutesUntilClose,
+            crowd = crowd,
         )
     }.stateIn(
         viewModelScope,
@@ -102,6 +117,9 @@ class PoolDetailsViewModel @Inject constructor(
 
     fun setPoolId(poolId: String) {
         poolIdFlow.value = poolId
+        viewModelScope.launch {
+            runCatching { crowdMonitorRepository.refresh() }
+        }
     }
 
     fun toggleFavorite() {
@@ -124,6 +142,7 @@ fun PoolDetailsScreen(
     }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val timeFmt = DateTimeFormatter.ofPattern("H:mm")
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -187,6 +206,25 @@ fun PoolDetailsScreen(
             )
         }
 
+        pool.url?.let { pageUrl ->
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = stringResource(R.string.pool_details_stadt_link),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = pageUrl,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary,
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { openUrl(context, pageUrl) },
+            )
+        }
+
         when (state.openStatus) {
             "recommended" -> {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -220,6 +258,28 @@ fun PoolDetailsScreen(
             }
         }
 
+        // Live occupancy for favorites (and when this pool is favorited)
+        if (state.isFavorite && pool.crowdMonitorUid != null) {
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = stringResource(R.string.crowd_heading),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.crowd_source_hint),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.outline,
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            OccupancyIconsRow(
+                connection = state.crowd.connection,
+                occupancy = state.crowd.forUid(pool.crowdMonitorUid),
+                showGuestCount = true,
+            )
+        }
+
         pool.hoursNote?.let {
             Spacer(modifier = Modifier.height(12.dp))
             Text(
@@ -228,12 +288,22 @@ fun PoolDetailsScreen(
                 color = MaterialTheme.colorScheme.outline,
             )
         }
-        pool.externalUrl?.let {
-            Spacer(modifier = Modifier.height(8.dp))
+        pool.externalUrl?.let { extUrl ->
+            Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = stringResource(R.string.pool_details_external, it),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.outline,
+                text = stringResource(R.string.pool_details_external_link),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = extUrl,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary,
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { openUrl(context, extUrl) },
             )
         }
 
@@ -358,4 +428,13 @@ private fun formatMinutes(minutes: Long): String {
     val h = minutes / 60
     val m = minutes % 60
     return if (m == 0L) "${h}h" else "${h}h ${m}m"
+}
+
+private fun openUrl(context: android.content.Context, url: String) {
+    runCatching {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+    }
 }

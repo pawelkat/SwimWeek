@@ -19,7 +19,8 @@
       "openingHours": [],
       "externalUrl": "https://bad-altstetten.ch/",
       "hoursNote": "Opening hours maintained on bad-altstetten.ch (external operator).",
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-1"
     },
     {
       "id": "blaesi",
@@ -173,7 +174,8 @@
           "note": "Oktober-April"
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-2"
     },
     {
       "id": "bungertwies",
@@ -368,7 +370,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-3"
     },
     {
       "id": "city",
@@ -539,7 +542,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-4"
     },
     {
       "id": "leimbach",
@@ -893,7 +897,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-6"
     },
     {
       "id": "oerlikon",
@@ -1046,7 +1051,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-7"
     },
     {
       "id": "kaeferberg",
@@ -1342,7 +1348,8 @@
           "note": "(Oktober-April)"
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-5"
     },
     {
       "id": "aemtler",
@@ -1939,7 +1946,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "fb006"
     },
     {
       "id": "auhof",
@@ -2069,7 +2077,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "fb008"
     },
     {
       "id": "dolder",
@@ -2083,7 +2092,8 @@
       "openingHours": [],
       "externalUrl": "https://www.doldersports.com/",
       "hoursNote": "Opening hours on doldersports.com (external operator).",
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-13"
     },
     {
       "id": "heuried",
@@ -2213,7 +2223,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "fb012"
     },
     {
       "id": "letzigraben",
@@ -2312,7 +2323,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "LETZI-1"
     },
     {
       "id": "seebach",
@@ -2438,7 +2450,8 @@
           "note": "2"
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-11"
     },
     {
       "id": "zwischen-den-hoelzern",
@@ -2571,7 +2584,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "fb018"
     },
     {
       "id": "enge",
@@ -2585,7 +2599,8 @@
       "openingHours": [],
       "externalUrl": "https://www.seebadenge.ch/",
       "hoursNote": "Opening hours on seebadenge.ch (external operator).",
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "BADI-1"
     },
     {
       "id": "katzensee",
@@ -2844,7 +2859,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "SSD-10"
     },
     {
       "id": "mythenquai",
@@ -3042,7 +3058,8 @@
           "note": "Täglich ab 9 Uhr geöffnet"
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "seb6946"
     },
     {
       "id": "tiefenbrunnen",
@@ -3175,7 +3192,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "seb6947"
     },
     {
       "id": "wollishofen",
@@ -3305,7 +3323,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "seb6948"
     },
     {
       "id": "au-hoengg",
@@ -3568,7 +3587,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "flb6939"
     },
     {
       "id": "unterer-letten",
@@ -3698,7 +3718,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "flb6940"
     },
     {
       "id": "stadthausquai",
@@ -3775,7 +3796,8 @@
           "note": null
         }
       ],
-      "selectable": true
+      "selectable": true,
+      "crowdMonitorUid": "flb6941"
     },
     {
       "id": "schanzengraben",

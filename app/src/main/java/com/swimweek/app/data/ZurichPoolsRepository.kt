@@ -13,7 +13,7 @@ import org.json.JSONObject
 
 /**
  * Loads bundled Zurich Hallenbäder + Sommerbäder catalogue and timetables
- * from assets (no network — app has no INTERNET permission).
+ * from assets. Opening hours stay offline; live occupancy uses CrowdMonitor separately.
  */
 @Singleton
 class ZurichPoolsRepository @Inject constructor(
@@ -76,6 +76,7 @@ class ZurichPoolsRepository @Inject constructor(
             selectable = obj.optBoolean("selectable", true),
             externalUrl = obj.optString("externalUrl").takeIf { it.isNotBlank() },
             hoursNote = obj.optString("hoursNote").takeIf { it.isNotBlank() },
+            crowdMonitorUid = obj.optString("crowdMonitorUid").takeIf { it.isNotBlank() },
             openingHours = hours,
             schedules = schedules,
         )

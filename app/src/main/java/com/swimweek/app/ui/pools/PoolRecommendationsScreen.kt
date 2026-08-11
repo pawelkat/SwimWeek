@@ -31,8 +31,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
+import com.swimweek.app.data.CrowdMonitorRepository
 import com.swimweek.app.data.FavoritePoolsStore
+import com.swimweek.app.data.PreferencesStore
+import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.data.ZurichPoolsRepository
+import com.swimweek.app.domain.CrowdMonitorSnapshot
 import com.swimweek.app.domain.OpenPoolRecommender
 import com.swimweek.app.domain.Pool
 import com.swimweek.app.ui.theme.AmoledBlack
@@ -60,12 +64,15 @@ data class PoolRecommendationsUiState(
     val allPools: List<Pool> = emptyList(),
     val favoriteIds: Set<String> = emptySet(),
     val minMinutes: Long = OpenPoolRecommender.DEFAULT_MIN_MINUTES_UNTIL_CLOSE,
+    val crowd: CrowdMonitorSnapshot = CrowdMonitorSnapshot(),
 )
 
 @HiltViewModel
 class PoolRecommendationsViewModel @Inject constructor(
     private val poolsRepository: ZurichPoolsRepository,
     private val favoritePoolsStore: FavoritePoolsStore,
+    private val preferencesStore: PreferencesStore,
+    private val crowdMonitorRepository: CrowdMonitorRepository,
     private val clockProvider: ClockProvider,
 ) : ViewModel() {
 
@@ -73,17 +80,31 @@ class PoolRecommendationsViewModel @Inject constructor(
 
     val uiState: StateFlow<PoolRecommendationsUiState> = combine(
         favoritePoolsStore.favoriteIdsFlow,
+        preferencesStore.preferencesFlow,
+        crowdMonitorRepository.snapshot,
         refreshTick,
-    ) { favoriteIds, _ ->
-        buildState(favoriteIds)
+    ) { favoriteIds, prefs, crowd, _ ->
+        buildState(favoriteIds, prefs.recommendMinMinutesUntilClose.toLong(), crowd)
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
-        PoolRecommendationsUiState(),
+        PoolRecommendationsUiState(
+            minMinutes = UserPreferences.DEFAULT_RECOMMEND_MIN_MINUTES.toLong(),
+        ),
     )
+
+    init {
+        viewModelScope.launch {
+            // Never throws into UI — repository swallows failures
+            runCatching { crowdMonitorRepository.refresh() }
+        }
+    }
 
     fun refresh() {
         refreshTick.value = refreshTick.value + 1
+        viewModelScope.launch {
+            runCatching { crowdMonitorRepository.refresh(force = true) }
+        }
     }
 
     fun toggleFavorite(poolId: String) {
@@ -92,7 +113,11 @@ class PoolRecommendationsViewModel @Inject constructor(
         }
     }
 
-    private fun buildState(favoriteIds: Set<String>): PoolRecommendationsUiState {
+    private fun buildState(
+        favoriteIds: Set<String>,
+        minMinutesUntilClose: Long,
+        crowd: CrowdMonitorSnapshot,
+    ): PoolRecommendationsUiState {
         val zone = clockProvider.zoneId()
         val nowZ = ZonedDateTime.ofInstant(clockProvider.now(), zone)
         val date = nowZ.toLocalDate()
@@ -105,7 +130,7 @@ class PoolRecommendationsViewModel @Inject constructor(
             now = time,
             favoriteIds = favoriteIds,
             seasonYear = catalog.seasonYear ?: date.year,
-            minMinutesUntilClose = OpenPoolRecommender.DEFAULT_MIN_MINUTES_UNTIL_CLOSE,
+            minMinutesUntilClose = minMinutesUntilClose,
             includeClosingSoon = true,
         )
         val recommended = all.filter { it.isRecommended }
@@ -127,7 +152,8 @@ class PoolRecommendationsViewModel @Inject constructor(
                     .thenBy { it.name },
             ),
             favoriteIds = favoriteIds,
-            minMinutes = OpenPoolRecommender.DEFAULT_MIN_MINUTES_UNTIL_CLOSE,
+            minMinutes = minMinutesUntilClose,
+            crowd = crowd,
         )
     }
 }
@@ -203,6 +229,7 @@ fun PoolRecommendationsScreen(
                 rec = top,
                 timeFmt = timeFmt,
                 highlighted = true,
+                crowd = state.crowd,
                 onOpenPool = { onOpenPool(top.pool.id) },
                 onToggleFavorite = { viewModel.toggleFavorite(top.pool.id) },
             )
@@ -222,6 +249,7 @@ fun PoolRecommendationsScreen(
                     rec = rec,
                     timeFmt = timeFmt,
                     highlighted = false,
+                    crowd = state.crowd,
                     onOpenPool = { onOpenPool(rec.pool.id) },
                     onToggleFavorite = { viewModel.toggleFavorite(rec.pool.id) },
                 )
@@ -248,6 +276,7 @@ fun PoolRecommendationsScreen(
                     rec = rec,
                     timeFmt = timeFmt,
                     highlighted = false,
+                    crowd = state.crowd,
                     onOpenPool = { onOpenPool(rec.pool.id) },
                     onToggleFavorite = { viewModel.toggleFavorite(rec.pool.id) },
                 )
@@ -267,6 +296,7 @@ fun PoolRecommendationsScreen(
                 FavoriteClosedRow(
                     pool = pool,
                     isFavorite = true,
+                    crowd = state.crowd,
                     onOpenPool = { onOpenPool(pool.id) },
                     onToggleFavorite = { viewModel.toggleFavorite(pool.id) },
                 )
@@ -337,6 +367,7 @@ private fun RecommendationCard(
     rec: OpenPoolRecommender.Recommendation,
     timeFmt: DateTimeFormatter,
     highlighted: Boolean,
+    crowd: CrowdMonitorSnapshot,
     onOpenPool: () -> Unit,
     onToggleFavorite: () -> Unit,
 ) {
@@ -413,6 +444,14 @@ private fun RecommendationCard(
                     MaterialTheme.colorScheme.primary
                 },
             )
+            if (rec.isFavorite && rec.pool.crowdMonitorUid != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                OccupancyIconsRow(
+                    connection = crowd.connection,
+                    occupancy = crowd.forUid(rec.pool.crowdMonitorUid),
+                    compact = false,
+                )
+            }
             rec.pool.description?.let {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -429,36 +468,47 @@ private fun RecommendationCard(
 private fun FavoriteClosedRow(
     pool: Pool,
     isFavorite: Boolean,
+    crowd: CrowdMonitorSnapshot,
     onOpenPool: () -> Unit,
     onToggleFavorite: () -> Unit,
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .clickable(onClick = onOpenPool),
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = pool.name,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary,
-            )
-            Text(
-                text = stringResource(R.string.recommend_not_open_now),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable(onClick = onOpenPool),
+            ) {
+                Text(
+                    text = pool.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+                Text(
+                    text = stringResource(R.string.recommend_not_open_now),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            OutlinedButton(onClick = onToggleFavorite) {
+                Text(
+                    if (isFavorite) {
+                        stringResource(R.string.recommend_favorite_on)
+                    } else {
+                        stringResource(R.string.recommend_favorite_off)
+                    },
+                )
+            }
         }
-        OutlinedButton(onClick = onToggleFavorite) {
-            Text(
-                if (isFavorite) {
-                    stringResource(R.string.recommend_favorite_on)
-                } else {
-                    stringResource(R.string.recommend_favorite_off)
-                },
+        if (isFavorite && pool.crowdMonitorUid != null) {
+            Spacer(modifier = Modifier.height(4.dp))
+            OccupancyIconsRow(
+                connection = crowd.connection,
+                occupancy = crowd.forUid(pool.crowdMonitorUid),
+                compact = true,
             )
         }
     }

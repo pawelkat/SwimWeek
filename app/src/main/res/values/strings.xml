@@ -40,6 +40,8 @@
     <string name="pool_details_closing_soon">Open but closing soon — %1$s left</string>
     <string name="pool_details_closed_now">Not open right now (per offline timetable)</string>
     <string name="pool_details_external">External hours: %1$s</string>
+    <string name="pool_details_stadt_link">Stadt Zürich page</string>
+    <string name="pool_details_external_link">Operator website</string>
     <string name="pool_details_today_hours">Today</string>
     <string name="pool_details_full_schedule">Full schedule</string>
 
@@ -112,11 +114,18 @@
     <string name="settings_week_start">Week starts on</string>
     <string name="settings_week_note">Changing week start applies on the next refresh.</string>
     <string name="settings_alerts_title">Evening pool reminder</string>
-    <string name="settings_alerts_body">Notify 1.5 hours before the Zurich pool that stays open longest this evening closes. Uses offline opening hours.</string>
+    <string name="settings_alerts_body">Notify %1$d minutes before the Zurich pool that stays open longest this evening closes. Uses offline opening hours.</string>
     <string name="settings_alerts_enabled">Evening reminder on</string>
     <string name="settings_alerts_disabled">Evening reminder off</string>
     <string name="settings_alerts_permission">Notifications are off for SwimWeek. Enable them in system settings to receive reminders.</string>
     <string name="settings_alerts_grant">Allow notifications</string>
+    <string name="settings_reminder_lead_title">Notify before close</string>
+    <string name="settings_reminder_lead_hint">Minutes before the evening pool closes (allowed %1$d–%2$d). Default 90.</string>
+    <string name="settings_recommend_minutes_title">Open-now threshold</string>
+    <string name="settings_recommend_minutes_hint">On recommendations, a pool counts as “not closing soon” if it has at least this many minutes left (allowed %1$d–%2$d). Default 90.</string>
+    <string name="settings_minutes_label">Minutes</string>
+    <string name="settings_minutes_suffix">min</string>
+    <string name="settings_save_timing">Save</string>
 
     <string name="alert_channel_name">Evening pool reminders</string>
     <string name="alert_channel_description">Reminds you 1.5 hours before the longest-open evening pool closes</string>
@@ -169,7 +178,15 @@
     <string name="privacy_title">Privacy &amp; permissions</string>
 
     <string name="privacy_open">Why we need access</string>
-    <string name="privacy_body">SwimWeek shows your weekly swimming distance from Health Connect. Data stays on this phone. We do not upload workouts to a server, and this app does not use the internet.</string>
+    <string name="privacy_body">SwimWeek shows your weekly swimming distance from Health Connect. Swim totals stay on this phone. Optional live pool occupancy uses CrowdMonitor (same feed as Stadt Zürich Bäder pages); no swim data is uploaded.</string>
     <string name="privacy_permissions_list">We request read access to:\n• Exercise sessions (to find pool and open-water swims)\n• Distance (to total meters for those sessions)\n• Background read (optional, for the home-screen widget)\n\nWe never write workouts and do not request health history beyond the platform default window.</string>
-    <string name="privacy_no_network">No INTERNET permission. Derived weekly totals are stored only on device and excluded from backup.</string>
+    <string name="privacy_no_network">INTERNET is used only for optional live pool occupancy (CrowdMonitor). Derived weekly swim totals are stored only on device and excluded from backup.</string>
+
+    <string name="crowd_loading">Occupancy…</string>
+    <string name="crowd_no_connection">No occupancy connection</string>
+    <string name="crowd_no_connection_cd">No connection to occupancy service</string>
+    <string name="crowd_guests">%1$d guests</string>
+    <string name="crowd_heading">Live occupancy</string>
+    <string name="crowd_source_hint">Same feed as Stadt Zürich Auslastung (CrowdMonitor)</string>
 </resources>
+

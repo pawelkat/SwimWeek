@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Person silhouette (outline) — adapted from Stadt Zürich Baeder CrowdMonitor icons (maennlein_kontur). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="36dp"
+    android:viewportWidth="149"
+    android:viewportHeight="356">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M74.47,74.25c19.9,0,36.14-16.24,36.14-36.14S94.37,2,74.47,2s-36.11,16.24-36.11,36.11,16.24,36.14,36.11,36.14h0Z"
+        android:strokeWidth="4"
+        android:strokeColor="#293380" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M107.76,353.24l6.68-211.96h5.65v97.34c0,17.49,26.84,17.94,26.84,0.06v-124.73c0-15.87-14.3-26.99-29.1-26.99H31.1c-14.8,0-29.1,11.11-29.1,26.99v124.73c0,17.86,26.82,17.46,26.82,-0.06l0.03-97.34h5.65l4.94,211.96h68.32Z"
+        android:strokeWidth="4"
+        android:strokeColor="#293380" />
+</vector>

@@ -116,6 +116,21 @@ class SettingsViewModel @Inject constructor(
             }
         }
     }
+
+    fun setReminderLeadMinutes(minutes: Int) {
+        viewModelScope.launch {
+            preferencesStore.setReminderLeadMinutes(minutes)
+            if (preferencesStore.get().eveningPoolReminderEnabled) {
+                poolReminderScheduler.scheduleNext(afterNotification = false)
+            }
+        }
+    }
+
+    fun setRecommendMinMinutesUntilClose(minutes: Int) {
+        viewModelScope.launch {
+            preferencesStore.setRecommendMinMinutesUntilClose(minutes)
+        }
+    }
 }
 
 @Composable
@@ -132,6 +147,8 @@ fun SettingsScreen(
         0.0
     }
     var targetText by remember { mutableStateOf("") }
+    var leadMinutesText by remember { mutableStateOf("") }
+    var recommendMinutesText by remember { mutableStateOf("") }
 
     LaunchedEffect(displayTarget, unit) {
         targetText = if (displayTarget > 0) {
@@ -139,6 +156,12 @@ fun SettingsScreen(
         } else {
             ""
         }
+    }
+    LaunchedEffect(prefs.reminderLeadMinutes) {
+        leadMinutesText = prefs.reminderLeadMinutes.toString()
+    }
+    LaunchedEffect(prefs.recommendMinMinutesUntilClose) {
+        recommendMinutesText = prefs.recommendMinMinutesUntilClose.toString()
     }
 
     Column(
@@ -276,7 +299,10 @@ fun SettingsScreen(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = stringResource(R.string.settings_alerts_body),
+            text = stringResource(
+                R.string.settings_alerts_body,
+                prefs.reminderLeadMinutes,
+            ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -347,8 +373,101 @@ fun SettingsScreen(
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(R.string.settings_reminder_lead_title),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(
+                R.string.settings_reminder_lead_hint,
+                UserPreferences.MIN_TIMING_MINUTES,
+                UserPreferences.MAX_TIMING_MINUTES,
+            ),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = leadMinutesText,
+            onValueChange = { leadMinutesText = it.filter { ch -> ch.isDigit() } },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            label = { Text(stringResource(R.string.settings_minutes_label)) },
+            suffix = { Text(stringResource(R.string.settings_minutes_suffix)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            colors = minutesFieldColors(),
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                val parsed = leadMinutesText.toIntOrNull()
+                    ?: UserPreferences.DEFAULT_REMINDER_LEAD_MINUTES
+                viewModel.setReminderLeadMinutes(parsed)
+            },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = prefs.eveningPoolReminderEnabled,
+        ) {
+            Text(stringResource(R.string.settings_save_timing))
+        }
+
+        Spacer(modifier = Modifier.height(28.dp))
+        Text(
+            text = stringResource(R.string.settings_recommend_minutes_title),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(
+                R.string.settings_recommend_minutes_hint,
+                UserPreferences.MIN_TIMING_MINUTES,
+                UserPreferences.MAX_TIMING_MINUTES,
+            ),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = recommendMinutesText,
+            onValueChange = { recommendMinutesText = it.filter { ch -> ch.isDigit() } },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            label = { Text(stringResource(R.string.settings_minutes_label)) },
+            suffix = { Text(stringResource(R.string.settings_minutes_suffix)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            colors = minutesFieldColors(),
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                val parsed = recommendMinutesText.toIntOrNull()
+                    ?: UserPreferences.DEFAULT_RECOMMEND_MIN_MINUTES
+                viewModel.setRecommendMinMinutesUntilClose(parsed)
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.settings_save_timing))
+        }
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
+
+@Composable
+private fun minutesFieldColors() = TextFieldDefaults.colors(
+    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+    focusedContainerColor = AmoledBlack,
+    unfocusedContainerColor = AmoledBlack,
+    cursorColor = MaterialTheme.colorScheme.primary,
+    focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+    unfocusedIndicatorColor = MaterialTheme.colorScheme.outline,
+    focusedLabelColor = MaterialTheme.colorScheme.primary,
+    unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+)
 
 @Composable
 private fun RadioRow(

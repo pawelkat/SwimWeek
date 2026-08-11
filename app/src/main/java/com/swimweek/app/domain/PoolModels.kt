@@ -14,6 +14,11 @@ data class Pool(
     val selectable: Boolean = true,
     val externalUrl: String? = null,
     val hoursNote: String? = null,
+    /**
+     * CrowdMonitor facility uid (e.g. SSD-4 for Hallenbad City).
+     * Null when the pool has no live occupancy feed.
+     */
+    val crowdMonitorUid: String? = null,
     val openingHours: List<OpeningHourSlot> = emptyList(),
     val schedules: List<ScheduleTable> = emptyList(),
 )
