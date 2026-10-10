@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SwimWeek</string>
+    <string name="complication_label">Weekly swim</string>
+    <string name="complication_desc">Swim distance this week</string>
+    <string name="this_week">This week</string>
+    <string name="no_data">Open SwimWeek on your phone to sync</string>
+    <string name="sessions">%1$d swim session(s)</string>
+    <string name="of_target">of %1$s</string>
+</resources>

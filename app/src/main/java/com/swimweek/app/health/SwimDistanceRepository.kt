@@ -11,6 +11,7 @@ import com.swimweek.app.domain.WeeklySwimSummary
 import com.swimweek.app.sync.SyncReason
 import com.swimweek.app.sync.WidgetUpdater
 import com.swimweek.app.util.ClockProvider
+import com.swimweek.app.wear.WearSyncPublisher
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import javax.inject.Inject
@@ -35,6 +36,7 @@ class SwimDistanceRepository @Inject constructor(
     private val permissionChecker: HealthPermissionChecker,
     private val clock: ClockProvider,
     private val widgetUpdater: WidgetUpdater,
+    private val wearSyncPublisher: WearSyncPublisher,
 ) {
     private val inMemory = MutableStateFlow<WeeklySwimSummary?>(null)
     private val weeklyHistory = MutableStateFlow<List<WeekStatPoint>>(emptyList())
@@ -280,6 +282,7 @@ class SwimDistanceRepository @Inject constructor(
         summaryCache.save(summary)
         inMemory.value = summary
         widgetUpdater.updateAll()
+        wearSyncPublisher.publish(summary)
         return summary
     }
 }
