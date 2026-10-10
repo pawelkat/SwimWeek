@@ -83,6 +83,8 @@ dependencies {
     implementation(libs.androidx.health.connect)
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.material3)
+    implementation(libs.play.services.wearable)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "SwimWeek"
 include(":app")
+include(":wear")
