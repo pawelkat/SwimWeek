@@ -22,6 +22,7 @@ import com.swimweek.app.alert.PoolReminderNotifier
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.ui.diagnostics.DiagnosticsScreen
 import com.swimweek.app.ui.home.HomeScreen
+import com.swimweek.app.ui.log.LogSwimScreen
 import com.swimweek.app.ui.navigation.AppDestination
 import com.swimweek.app.ui.onboarding.OnboardingScreen
 import com.swimweek.app.ui.pools.PoolDetailsScreen
@@ -127,6 +128,7 @@ class MainActivity : ComponentActivity() {
                             onOpenPoolRecommendations = {
                                 destination = AppDestination.POOL_RECOMMENDATIONS
                             },
+                            onLogSwim = { destination = AppDestination.LOG_SWIM },
                             modifier = pad,
                         )
                         AppDestination.SETTINGS -> SettingsScreen(
@@ -155,6 +157,10 @@ class MainActivity : ComponentActivity() {
                             onOpenPool = {
                                 openPoolDetails(it, AppDestination.POOL_RECOMMENDATIONS)
                             },
+                            modifier = pad,
+                        )
+                        AppDestination.LOG_SWIM -> LogSwimScreen(
+                            onDone = { destination = AppDestination.HOME },
                             modifier = pad,
                         )
                         AppDestination.POOL_DETAILS -> {

@@ -1,19 +1,28 @@
 package com.swimweek.app.health
 
 import com.swimweek.app.data.ChangesTokenStore
+import com.swimweek.app.data.ManualSwimStore
 import com.swimweek.app.data.PreferencesStore
+import com.swimweek.app.data.SessionPlaceStore
 import com.swimweek.app.data.SummaryCacheStore
+import com.swimweek.app.domain.MANUAL_ID_PREFIX
+import com.swimweek.app.domain.ManualSwim
+import com.swimweek.app.domain.ManualSwimKind
 import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.SwimSession
 import com.swimweek.app.domain.WeekRange
 import com.swimweek.app.domain.WeekStatPoint
 import com.swimweek.app.domain.WeeklySwimSummary
+import com.swimweek.app.domain.mergeManualSessions
+import com.swimweek.app.domain.withMergedSessions
 import com.swimweek.app.sync.SyncReason
 import com.swimweek.app.sync.WidgetUpdater
 import com.swimweek.app.util.ClockProvider
 import com.swimweek.app.wear.WearSyncPublisher
+import java.time.Instant
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +41,8 @@ class SwimDistanceRepository @Inject constructor(
     private val changesTokenStore: ChangesTokenStore,
     private val changesSyncEngine: ChangesSyncEngine,
     private val preferencesStore: PreferencesStore,
+    private val manualSwimStore: ManualSwimStore,
+    private val sessionPlaceStore: SessionPlaceStore,
     private val availability: HealthConnectAvailability,
     private val permissionChecker: HealthPermissionChecker,
     private val clock: ClockProvider,
@@ -90,7 +101,7 @@ class SwimDistanceRepository @Inject constructor(
         )
 
         if (!availability.isAvailable()) {
-            return cacheAndReturn(
+            return saveAndRefreshHistory(
                 WeeklySwimSummary.empty(
                     week = week,
                     lastSyncedAt = clock.now(),
@@ -100,7 +111,7 @@ class SwimDistanceRepository @Inject constructor(
         }
 
         if (!permissionChecker.hasRequiredPermissions()) {
-            return cacheAndReturn(
+            return saveAndRefreshHistory(
                 WeeklySwimSummary.empty(
                     week = week,
                     lastSyncedAt = clock.now(),
@@ -161,9 +172,8 @@ class SwimDistanceRepository @Inject constructor(
     suspend fun loadWeeklyHistory(weeksBack: Int = HISTORY_WEEKS): List<WeekStatPoint> {
         val prefs = preferencesStore.get()
         val target = prefs.weeklyTargetMeters
-        if (!availability.isAvailable() || !permissionChecker.hasRequiredPermissions()) {
-            return emptyList()
-        }
+        val manuals = manualSwimStore.getAll()
+        val hcOk = availability.isAvailable() && permissionChecker.hasRequiredPermissions()
         var week = WeekRange.current(
             zoneId = clock.zoneId(),
             weekStart = prefs.weekStart,
@@ -174,15 +184,15 @@ class SwimDistanceRepository @Inject constructor(
         for (i in 0 until weeksBack) {
             val isCurrent = i == 0
             val summary = if (isCurrent) {
-                // Prefer already-synced current week if identity matches
+                // Current week was just merged in cacheAndReturn when a sync ran.
                 val cached = summaryFlow.first()
                 if (cached != null && cached.week.identityKey() == week.identityKey()) {
                     cached
                 } else {
-                    aggregator.aggregateWeek(week)
+                    weekSummary(week, manuals, hcOk)
                 }
             } else {
-                aggregator.aggregateWeek(week)
+                weekSummary(week, manuals, hcOk)
             }
             points.add(
                 WeekStatPoint(
@@ -197,7 +207,67 @@ class SwimDistanceRepository @Inject constructor(
             week = week.previous()
         }
         // Chart left = oldest, right = current
-        return points.asReversed()
+        val ordered = points.asReversed()
+        if (!hcOk && ordered.all { it.sessions.isEmpty() }) return emptyList()
+        return ordered
+    }
+
+    /**
+     * Saves a typed swim, then refreshes the weekly total, widget, and watch.
+     * Stored metres are always metres, whatever unit the form used.
+     */
+    suspend fun addManualSwim(
+        kind: ManualSwimKind,
+        name: String,
+        start: Instant,
+        distanceMeters: Double,
+        poolId: String? = null,
+        watchMissed: Boolean = false,
+    ) {
+        val id = MANUAL_ID_PREFIX + UUID.randomUUID()
+        manualSwimStore.upsert(
+            ManualSwim(
+                id = id,
+                kind = kind,
+                name = name,
+                start = start,
+                distanceMeters = distanceMeters,
+                poolId = poolId,
+                watchMissed = watchMissed,
+            ),
+        )
+        if (kind == ManualSwimKind.POOL && poolId != null) {
+            sessionPlaceStore.setPlace(id, poolId, name)
+        }
+        sync(SyncReason.MANUAL)
+    }
+
+    /** Points a logged pool swim at another pool and refreshes the weekly total. */
+    suspend fun updateManualPool(sessionId: String, poolId: String, poolName: String) {
+        if (!sessionId.startsWith(MANUAL_ID_PREFIX)) return
+        val existing = manualSwimStore.getAll().firstOrNull { it.id == sessionId } ?: return
+        if (existing.kind != ManualSwimKind.POOL) return
+        manualSwimStore.upsert(existing.copy(name = poolName, poolId = poolId))
+        sessionPlaceStore.setPlace(sessionId, poolId, poolName)
+        sync(SyncReason.MANUAL)
+    }
+
+    /** Drops the pool link on a logged pool swim. The swim itself stays. */
+    suspend fun clearManualPool(sessionId: String) {
+        if (!sessionId.startsWith(MANUAL_ID_PREFIX)) return
+        val existing = manualSwimStore.getAll().firstOrNull { it.id == sessionId } ?: return
+        if (existing.kind != ManualSwimKind.POOL) return
+        manualSwimStore.upsert(existing.copy(poolId = null))
+        sessionPlaceStore.clearPlace(sessionId)
+        sync(SyncReason.MANUAL)
+    }
+
+    /** Removes a typed swim. Health Connect sessions are left in place. */
+    suspend fun deleteManualSwim(id: String) {
+        if (!id.startsWith(MANUAL_ID_PREFIX)) return
+        manualSwimStore.delete(id)
+        sessionPlaceStore.clearPlace(id)
+        sync(SyncReason.MANUAL)
     }
 
     companion object {
@@ -278,11 +348,42 @@ class SwimDistanceRepository @Inject constructor(
         cacheAndReturn(updated)
     }
 
+    private suspend fun saveAndRefreshHistory(summary: WeeklySwimSummary): WeeklySwimSummary {
+        val saved = cacheAndReturn(summary)
+        refreshWeeklyHistoryBestEffort()
+        return saved
+    }
+
+    private suspend fun weekSummary(
+        week: WeekRange,
+        manuals: List<ManualSwim>,
+        hcOk: Boolean,
+    ): WeeklySwimSummary {
+        val base = if (hcOk) {
+            aggregator.aggregateWeek(week)
+        } else {
+            val status = if (!availability.isAvailable()) {
+                SourceStatus.HEALTH_CONNECT_UNAVAILABLE
+            } else {
+                SourceStatus.PERMISSIONS_MISSING
+            }
+            WeeklySwimSummary.empty(week, clock.now(), status)
+        }
+        return base.withMergedSessions(mergeManualSessions(base.sessions, manuals, week))
+    }
+
     private suspend fun cacheAndReturn(summary: WeeklySwimSummary): WeeklySwimSummary {
-        summaryCache.save(summary)
-        inMemory.value = summary
+        val merged = summary.withMergedSessions(
+            mergeManualSessions(
+                healthSessions = summary.sessions,
+                manuals = manualSwimStore.getAll(),
+                week = summary.week,
+            ),
+        )
+        summaryCache.save(merged)
+        inMemory.value = merged
         widgetUpdater.updateAll()
-        wearSyncPublisher.publish(summary)
-        return summary
+        wearSyncPublisher.publish(merged)
+        return merged
     }
 }

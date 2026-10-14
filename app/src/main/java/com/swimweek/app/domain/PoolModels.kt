@@ -59,6 +59,15 @@ data class ZurichPoolsCatalog(
     fun findById(id: String): Pool? = pools.firstOrNull { it.id == id }
 }
 
+/** Zurich catalogue plus pools the user added. Favorites sort first. */
+fun List<Pool>.withCustomPools(custom: List<Pool>, favoriteIds: Set<String>): List<Pool> =
+    (this + custom)
+        .distinctBy { it.id }
+        .sortedWith(
+            compareByDescending<Pool> { it.id in favoriteIds }
+                .thenBy { it.name.lowercase() },
+        )
+
 /**
  * Local mapping of a Health Connect exercise session id → chosen pool.
  * Pool name acts as the session place / title in the app (HC has no place field).

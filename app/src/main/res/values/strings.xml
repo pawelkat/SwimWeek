@@ -161,7 +161,51 @@
     <string name="diagnostics_clear_report">Clear missing-data report</string>
 
     <string name="home_sessions_heading">Sessions this week</string>
-    <string name="home_sessions_hint">Tap a session to set the pool and view hours</string>
+    <string name="home_sessions_hint">Tap a session to set the pool, or to review a swim you logged</string>
+    <string name="home_log_swim">Log a swim</string>
+    <string name="home_status_logged">Swim logged on this phone</string>
+
+    <string name="log_swim_title">Log a swim</string>
+    <string name="log_swim_kind_pool">Pool swimming</string>
+    <string name="log_swim_kind_open_water">Open water</string>
+    <string name="log_swim_watch_missed">The watch didn\'t record this swim</string>
+    <string name="log_swim_place">Place</string>
+    <string name="log_swim_place_hint">Lake or river</string>
+    <string name="log_swim_error_place">Enter the place, such as a lake or river.</string>
+    <string name="log_swim_error_pool_pick">Choose a pool.</string>
+    <string name="pool_picker_add">Add a pool</string>
+    <string name="add_pool_title">New pool</string>
+    <string name="add_pool_hint">Saved on this phone and added to the pool list. Opening hours can wait.</string>
+    <string name="add_pool_name">Pool name</string>
+    <string name="add_pool_name_hint">e.g. hotel pool</string>
+    <string name="add_pool_kind">Kind</string>
+    <string name="add_pool_kind_indoor">Indoor</string>
+    <string name="add_pool_kind_outdoor">Outdoor</string>
+    <string name="add_pool_kind_other">Other</string>
+    <string name="add_pool_note">Note (optional)</string>
+    <string name="add_pool_note_hint">City or address</string>
+    <string name="add_pool_save">Save pool</string>
+    <string name="add_pool_error_name">Enter the pool name.</string>
+    <string name="log_swim_metres">Distance (%1$s)</string>
+    <string name="log_swim_date">Date</string>
+    <string name="log_swim_time">Start time</string>
+    <string name="log_swim_save">Save swim</string>
+    <string name="log_swim_saving">Saving…</string>
+    <string name="log_swim_hint">The swim counts for 45 minutes from the start. If Health Connect later has a swim in that window, this estimate is not added again.</string>
+    <string name="log_swim_ok">OK</string>
+    <string name="log_swim_cancel">Cancel</string>
+    <string name="log_swim_error_metres">Enter a distance greater than zero.</string>
+    <string name="log_swim_error_future">That start time is still in the future.</string>
+    <string name="log_swim_error_old">Only the last %1$d weeks can be logged.</string>
+    <string name="log_swim_error_save">Could not save (%1$s).</string>
+
+    <string name="session_manual_estimate">This distance is an estimate you entered. It is included in the weekly total.</string>
+    <string name="session_manual_overlap">Not added to the weekly total. Health Connect already has a swim in this time.</string>
+    <string name="session_manual_distance_not_counted">%1$s · not counted</string>
+    <string name="session_manual_delete">Delete this swim</string>
+    <string name="session_manual_delete_title">Delete this swim?</string>
+    <string name="session_manual_delete_body">This removes the distance you entered. A Health Connect swim is left as it is.</string>
+    <string name="session_manual_delete_confirm">Delete</string>
 
     <string name="session_pool_title">Pool</string>
     <string name="session_pool_label">Pool name</string>

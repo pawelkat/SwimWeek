@@ -29,6 +29,7 @@ import com.swimweek.app.data.SessionPlaceStore
 import com.swimweek.app.domain.DistanceSource
 import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.WeeklySwimSummary
+import com.swimweek.app.domain.resolvedPlaceName
 import com.swimweek.app.health.SwimDistanceRepository
 import com.swimweek.app.sync.SyncReason
 import com.swimweek.app.ui.onboarding.SamsungBridgeChecklist
@@ -169,7 +170,7 @@ fun DiagnosticsScreen(
                 )
             } else {
                 s.sessions.forEach { session ->
-                    val place = ui.sessionPlaces[session.id]
+                    val place = session.resolvedPlaceName(ui.sessionPlaces[session.id])
                     Text(
                         text = buildString {
                             append(place ?: stringResource(R.string.session_pool_unset))
@@ -240,5 +241,6 @@ private fun DistanceSource.shortLabel(): String =
     when (this) {
         DistanceSource.AGGREGATE_ORIGIN_FILTERED -> "HC aggregate"
         DistanceSource.LAP_LENGTHS -> "laps"
+        DistanceSource.MANUAL -> "entered"
         DistanceSource.NONE -> "no distance"
     }

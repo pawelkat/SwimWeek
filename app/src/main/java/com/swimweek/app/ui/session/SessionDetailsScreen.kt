@@ -11,13 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MenuAnchorType
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -34,13 +30,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
+import com.swimweek.app.data.CustomPoolStore
 import com.swimweek.app.data.FavoritePoolsStore
+import com.swimweek.app.data.ManualSwimStore
 import com.swimweek.app.data.SessionPlaceStore
 import com.swimweek.app.data.ZurichPoolsRepository
+import com.swimweek.app.domain.DistanceUnit
+import com.swimweek.app.domain.ManualSwim
+import com.swimweek.app.domain.ManualSwimKind
 import com.swimweek.app.domain.OpeningHourSlot
 import com.swimweek.app.domain.Pool
 import com.swimweek.app.domain.SessionPlace
 import com.swimweek.app.domain.SwimSession
+import com.swimweek.app.domain.withCustomPools
+import com.swimweek.app.ui.pools.AddPoolForm
+import com.swimweek.app.ui.pools.PoolPickerField
 import com.swimweek.app.health.SwimDistanceRepository
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.LengthFormat
@@ -63,6 +67,7 @@ data class SessionDetailsUiState(
     val pools: List<Pool> = emptyList(),
     val favoriteIds: Set<String> = emptySet(),
     val selectedPool: Pool? = null,
+    val manual: ManualSwim? = null,
     val notFound: Boolean = false,
 )
 
@@ -72,6 +77,8 @@ class SessionDetailsViewModel @Inject constructor(
     private val placeStore: SessionPlaceStore,
     private val poolsRepository: ZurichPoolsRepository,
     private val favoritePoolsStore: FavoritePoolsStore,
+    private val manualSwimStore: ManualSwimStore,
+    private val customPoolStore: CustomPoolStore,
 ) : ViewModel() {
 
     private val sessionIdFlow = MutableStateFlow<String?>(null)
@@ -81,26 +88,32 @@ class SessionDetailsViewModel @Inject constructor(
         repository.summaryFlow,
         repository.sessionByIdFlow,
         placeStore.placesFlow,
-        favoritePoolsStore.favoriteIdsFlow,
-    ) { sessionId, summary, historySessions, places, favoriteIds ->
+        combine(
+            favoritePoolsStore.favoriteIdsFlow,
+            manualSwimStore.swimsFlow,
+            customPoolStore.poolsFlow,
+        ) { favoriteIds, manuals, customPools ->
+            Triple(favoriteIds, manuals, customPools)
+        },
+    ) { sessionId, summary, historySessions, places, extras ->
+        val (favoriteIds, manuals, customPools) = extras
         if (sessionId == null) {
             return@combine SessionDetailsUiState(notFound = true)
         }
         val session = summary?.sessions?.firstOrNull { it.id == sessionId }
             ?: historySessions[sessionId]
         val place = places[sessionId]
-        val pools = poolsRepository.selectablePools()
-            .sortedWith(
-                compareByDescending<Pool> { it.id in favoriteIds }
-                    .thenBy { it.name },
-            )
-        val selected = place?.poolId?.let { id -> pools.firstOrNull { it.id == id } }
+        val pools = poolsRepository.selectablePools().withCustomPools(customPools, favoriteIds)
+        val manual = manuals[sessionId]
+        val linkedPoolId = place?.poolId ?: manual?.poolId
+        val selected = linkedPoolId?.let { id -> pools.firstOrNull { it.id == id } }
         SessionDetailsUiState(
             session = session,
             place = place,
             pools = pools,
             favoriteIds = favoriteIds,
             selectedPool = selected,
+            manual = manual,
             notFound = session == null,
         )
     }.stateIn(
@@ -116,19 +129,36 @@ class SessionDetailsViewModel @Inject constructor(
     fun selectPool(pool: Pool) {
         val sessionId = sessionIdFlow.value ?: return
         viewModelScope.launch {
-            placeStore.setPlace(sessionId, pool.id, pool.name)
+            val manual = manualSwimStore.getAll().firstOrNull { it.id == sessionId }
+            if (manual?.kind == ManualSwimKind.POOL) {
+                repository.updateManualPool(sessionId, pool.id, pool.name)
+            } else {
+                placeStore.setPlace(sessionId, pool.id, pool.name)
+            }
         }
     }
 
     fun clearPool() {
         val sessionId = sessionIdFlow.value ?: return
         viewModelScope.launch {
-            placeStore.clearPlace(sessionId)
+            val manual = manualSwimStore.getAll().firstOrNull { it.id == sessionId }
+            if (manual?.kind == ManualSwimKind.POOL) {
+                repository.clearManualPool(sessionId)
+            } else {
+                placeStore.clearPlace(sessionId)
+            }
+        }
+    }
+
+    fun deleteManual(onDone: () -> Unit) {
+        val sessionId = sessionIdFlow.value ?: return
+        viewModelScope.launch {
+            repository.deleteManualSwim(sessionId)
+            onDone()
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SessionDetailsScreen(
     sessionId: String,
@@ -140,7 +170,21 @@ fun SessionDetailsScreen(
         viewModel.setSessionId(sessionId)
     }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    var expanded by remember { mutableStateOf(false) }
+    var confirmDelete by remember { mutableStateOf(false) }
+    var addingPool by remember { mutableStateOf(false) }
+    val openWater = state.manual?.kind == ManualSwimKind.OPEN_WATER
+
+    if (addingPool) {
+        AddPoolForm(
+            onBack = { addingPool = false },
+            onSaved = { pool ->
+                viewModel.selectPool(pool)
+                addingPool = false
+            },
+            modifier = modifier,
+        )
+        return
+    }
 
     Column(
         modifier = modifier
@@ -153,79 +197,43 @@ fun SessionDetailsScreen(
             Text(stringResource(R.string.nav_back))
         }
 
-        // Pool name as title — dropdown of Zurich pools
-        Text(
-            text = stringResource(R.string.session_pool_title),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = it },
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            OutlinedTextField(
-                value = state.selectedPool?.name
-                    ?: state.place?.poolName
-                    ?: stringResource(R.string.session_pool_unset),
-                onValueChange = {},
-                readOnly = true,
-                label = { Text(stringResource(R.string.session_pool_label)) },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                modifier = Modifier
-                    .menuAnchor(MenuAnchorType.PrimaryNotEditable)
-                    .fillMaxWidth(),
-                textStyle = MaterialTheme.typography.headlineSmall,
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+        if (openWater) {
+            Text(
+                text = state.manual?.name ?: stringResource(R.string.log_swim_kind_open_water),
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-            ) {
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = stringResource(R.string.session_pool_unset),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    },
-                    onClick = {
-                        viewModel.clearPool()
-                        expanded = false
-                    },
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.log_swim_kind_open_water),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        } else {
+            if (state.manual != null) {
+                Text(
+                    text = stringResource(R.string.log_swim_kind_pool),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-                state.pools.forEach { pool ->
-                    val isFavorite = pool.id in state.favoriteIds
-                    DropdownMenuItem(
-                        text = {
-                            Column {
-                                Text(
-                                    text = if (isFavorite) {
-                                        "★ ${pool.name}"
-                                    } else {
-                                        pool.name
-                                    },
-                                )
-                                Text(
-                                    text = if (isFavorite) {
-                                        stringResource(R.string.session_pool_favorite_kind, pool.kind)
-                                    } else {
-                                        pool.kind.replaceFirstChar { it.uppercase() }
-                                    },
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            }
-                        },
-                        onClick = {
-                            viewModel.selectPool(pool)
-                            expanded = false
-                        },
-                    )
-                }
+                Spacer(modifier = Modifier.height(8.dp))
+            } else {
+                Text(
+                    text = stringResource(R.string.session_pool_title),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
             }
+            PoolPickerField(
+                pools = state.pools,
+                favoriteIds = state.favoriteIds,
+                selectedPool = state.selectedPool,
+                fallbackName = state.place?.poolName,
+                onSelect = viewModel::selectPool,
+                onClear = viewModel::clearPool,
+                onAdd = { addingPool = true },
+            )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -259,32 +267,105 @@ fun SessionDetailsScreen(
             label = stringResource(R.string.session_when),
             value = "${dateFmt.format(startZ)} · ${timeFmt.format(startZ)} – ${timeFmt.format(endZ)}",
         )
+        val logged = state.manual != null
+        val enteredMeters = state.manual?.distanceMeters
+        val distanceMeters = if (logged && session.overlapSuppressed && enteredMeters != null) {
+            enteredMeters
+        } else {
+            session.distanceMeters
+        }
+        val distanceText = LengthFormat.format(
+            distanceMeters,
+            DistanceUnit.METERS,
+            Locale.getDefault(),
+        )
         DetailLine(
             label = stringResource(R.string.session_distance),
-            value = LengthFormat.format(
-                session.distanceMeters,
-                com.swimweek.app.domain.DistanceUnit.METERS,
-                Locale.getDefault(),
-            ),
+            value = if (logged && session.overlapSuppressed) {
+                stringResource(R.string.session_manual_distance_not_counted, distanceText)
+            } else {
+                distanceText
+            },
         )
-        DetailLine(
-            label = stringResource(R.string.session_type),
-            value = session.exerciseType.name,
-        )
-        DetailLine(
-            label = stringResource(R.string.session_source),
-            value = session.dataOriginPackage.ifBlank { "—" },
-        )
-        if (session.partialDistance || session.overlapSuppressed) {
+        if (!logged) {
             DetailLine(
-                label = stringResource(R.string.session_flags),
-                value = buildString {
-                    if (session.partialDistance) append(stringResource(R.string.session_flag_partial))
-                    if (session.partialDistance && session.overlapSuppressed) append(" · ")
-                    if (session.overlapSuppressed) append(stringResource(R.string.session_flag_overlap))
+                label = stringResource(R.string.session_type),
+                value = session.exerciseType.name,
+            )
+            DetailLine(
+                label = stringResource(R.string.session_source),
+                value = session.dataOriginPackage.ifBlank { "—" },
+            )
+            if (session.partialDistance || session.overlapSuppressed) {
+                DetailLine(
+                    label = stringResource(R.string.session_flags),
+                    value = buildString {
+                        if (session.partialDistance) append(stringResource(R.string.session_flag_partial))
+                        if (session.partialDistance && session.overlapSuppressed) append(" · ")
+                        if (session.overlapSuppressed) append(stringResource(R.string.session_flag_overlap))
+                    },
+                )
+            }
+        } else {
+            if (state.manual?.watchMissed == true) {
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = stringResource(R.string.log_swim_watch_missed),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = stringResource(
+                    if (session.overlapSuppressed) {
+                        R.string.session_manual_overlap
+                    } else {
+                        R.string.session_manual_estimate
+                    },
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            OutlinedButton(
+                onClick = { confirmDelete = true },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    text = stringResource(R.string.session_manual_delete),
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
+        }
+
+        if (confirmDelete) {
+            AlertDialog(
+                onDismissRequest = { confirmDelete = false },
+                title = { Text(stringResource(R.string.session_manual_delete_title)) },
+                text = { Text(stringResource(R.string.session_manual_delete_body)) },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            confirmDelete = false
+                            viewModel.deleteManual(onBack)
+                        },
+                    ) {
+                        Text(
+                            text = stringResource(R.string.session_manual_delete_confirm),
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { confirmDelete = false }) {
+                        Text(stringResource(R.string.log_swim_cancel))
+                    }
                 },
             )
         }
+
+        if (openWater) return@Column
 
         val pool = state.selectedPool
         if (pool != null) {
@@ -313,7 +394,13 @@ fun SessionDetailsScreen(
             Spacer(modifier = Modifier.height(12.dp))
             if (pool.openingHours.isEmpty()) {
                 Text(
-                    text = stringResource(R.string.session_hours_unavailable),
+                    text = stringResource(
+                        if (pool.category == CustomPoolStore.CUSTOM_POOL_CATEGORY) {
+                            R.string.add_pool_hint
+                        } else {
+                            R.string.session_hours_unavailable
+                        },
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -322,12 +409,14 @@ fun SessionDetailsScreen(
                     HoursRow(slot)
                 }
             }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.session_hours_disclaimer),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.outline,
-            )
+            if (pool.category != CustomPoolStore.CUSTOM_POOL_CATEGORY) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.session_hours_disclaimer),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.outline,
+                )
+            }
         } else {
             Spacer(modifier = Modifier.height(28.dp))
             Text(

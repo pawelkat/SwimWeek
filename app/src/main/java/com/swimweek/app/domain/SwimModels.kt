@@ -17,6 +17,9 @@ enum class DistanceSource {
     /** Sum of ExerciseLap.length when aggregate was zero. */
     LAP_LENGTHS,
 
+    /** Distance the user typed. Not a Health Connect record. */
+    MANUAL,
+
     /** No usable distance after all fallbacks. */
     NONE,
 }

@@ -34,6 +34,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swimweek.app.R
 import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.TargetProgress
+import com.swimweek.app.domain.WeeklySwimSummary
+import com.swimweek.app.domain.isManualEntry
+import com.swimweek.app.domain.resolvedPlaceName
 import com.swimweek.app.ui.components.SwimIconWithProgress
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.GoogleWalletLauncher
@@ -52,6 +55,7 @@ fun HomeScreen(
     onOpenDiagnostics: () -> Unit,
     onOpenSession: (sessionId: String) -> Unit = {},
     onOpenPoolRecommendations: () -> Unit = {},
+    onLogSwim: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -145,7 +149,7 @@ fun HomeScreen(
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = statusLabel(summary?.sourceStatus),
+                    text = statusLabel(summary),
                     style = MaterialTheme.typography.bodyMedium,
                     color = when (summary?.sourceStatus) {
                         SourceStatus.ERROR,
@@ -155,13 +159,15 @@ fun HomeScreen(
                         else -> MaterialTheme.colorScheme.onSurfaceVariant
                     },
                 )
-                emptyStateHint(summary?.sourceStatus)?.let { hintRes ->
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = stringResource(hintRes),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.outline,
-                    )
+                if ((summary?.sessionCount ?: 0) == 0) {
+                    emptyStateHint(summary?.sourceStatus)?.let { hintRes ->
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = stringResource(hintRes),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.outline,
+                        )
+                    }
                 }
             }
         }
@@ -173,6 +179,14 @@ fun HomeScreen(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.error,
             )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedButton(
+            onClick = onLogSwim,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.home_log_swim))
         }
 
         Spacer(modifier = Modifier.height(28.dp))
@@ -208,7 +222,7 @@ fun HomeScreen(
                 .withLocale(Locale.getDefault())
             sessions.forEach { session ->
                 val startZ = session.start.atZone(zone)
-                val placeName = state.sessionPlaces[session.id]
+                val placeName = session.resolvedPlaceName(state.sessionPlaces[session.id])
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -328,8 +342,12 @@ fun HomeScreen(
 }
 
 @Composable
-private fun statusLabel(status: SourceStatus?): String {
-    return when (status) {
+private fun statusLabel(summary: WeeklySwimSummary?): String {
+    val loggedOnly = summary != null &&
+        summary.sourceStatus == SourceStatus.NO_DATA &&
+        summary.sessions.any { it.isManualEntry() && it.distanceMeters > 0.0 && !it.overlapSuppressed }
+    if (loggedOnly) return stringResource(R.string.home_status_logged)
+    return when (summary?.sourceStatus) {
         null -> stringResource(R.string.home_status_loading)
         SourceStatus.OK -> stringResource(R.string.home_status_ok)
         SourceStatus.NO_DATA -> stringResource(R.string.home_status_no_data)

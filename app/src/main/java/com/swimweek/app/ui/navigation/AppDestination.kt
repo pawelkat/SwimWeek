@@ -9,4 +9,5 @@ enum class AppDestination {
     SESSION_DETAILS,
     POOL_RECOMMENDATIONS,
     POOL_DETAILS,
+    LOG_SWIM,
 }

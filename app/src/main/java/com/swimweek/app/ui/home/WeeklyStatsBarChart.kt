@@ -41,6 +41,7 @@ import com.swimweek.app.R
 import com.swimweek.app.domain.DistanceUnit
 import com.swimweek.app.domain.SwimSession
 import com.swimweek.app.domain.WeekStatPoint
+import com.swimweek.app.domain.resolvedPlaceName
 import com.swimweek.app.ui.theme.AmoledAccent
 import com.swimweek.app.ui.theme.AmoledTextMuted
 import com.swimweek.app.ui.theme.AmoledTextSecondary
@@ -276,7 +277,7 @@ private fun WeekVisitsDialog(
                     visits.forEach { session ->
                         VisitRow(
                             session = session,
-                            poolName = sessionPlaces[session.id],
+                            poolName = session.resolvedPlaceName(sessionPlaces[session.id]),
                             unit = unit,
                             dateFmt = dateFmt,
                             timeFmt = timeFmt,
