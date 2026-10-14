@@ -24,8 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import android.widget.Toast
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,14 +35,17 @@ import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
 import com.swimweek.app.data.CrowdMonitorRepository
 import com.swimweek.app.data.FavoritePoolsStore
+import com.swimweek.app.data.PoolNoticeRepository
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.data.ZurichPoolsRepository
 import com.swimweek.app.domain.CrowdMonitorSnapshot
 import com.swimweek.app.domain.OpenPoolRecommender
 import com.swimweek.app.domain.Pool
+import com.swimweek.app.domain.PoolNoticeEntry
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.ClockProvider
+import com.swimweek.app.util.GoogleWalletLauncher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import java.time.LocalTime
@@ -65,6 +70,8 @@ data class PoolRecommendationsUiState(
     val favoriteIds: Set<String> = emptySet(),
     val minMinutes: Long = OpenPoolRecommender.DEFAULT_MIN_MINUTES_UNTIL_CLOSE,
     val crowd: CrowdMonitorSnapshot = CrowdMonitorSnapshot(),
+    /** Lazy online stzh-disturber notices, keyed by pool id (favorites only loaded). */
+    val noticesByPoolId: Map<String, PoolNoticeEntry> = emptyMap(),
 )
 
 @HiltViewModel
@@ -73,6 +80,7 @@ class PoolRecommendationsViewModel @Inject constructor(
     private val favoritePoolsStore: FavoritePoolsStore,
     private val preferencesStore: PreferencesStore,
     private val crowdMonitorRepository: CrowdMonitorRepository,
+    private val poolNoticeRepository: PoolNoticeRepository,
     private val clockProvider: ClockProvider,
 ) : ViewModel() {
 
@@ -82,9 +90,15 @@ class PoolRecommendationsViewModel @Inject constructor(
         favoritePoolsStore.favoriteIdsFlow,
         preferencesStore.preferencesFlow,
         crowdMonitorRepository.snapshot,
+        poolNoticeRepository.entries,
         refreshTick,
-    ) { favoriteIds, prefs, crowd, _ ->
-        buildState(favoriteIds, prefs.recommendMinMinutesUntilClose.toLong(), crowd)
+    ) { favoriteIds, prefs, crowd, notices, _ ->
+        buildState(
+            favoriteIds = favoriteIds,
+            minMinutesUntilClose = prefs.recommendMinMinutesUntilClose.toLong(),
+            crowd = crowd,
+            notices = notices,
+        )
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -95,8 +109,13 @@ class PoolRecommendationsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            // Never throws into UI — repository swallows failures
             runCatching { crowdMonitorRepository.refresh() }
+        }
+        // Lazy-load disturber notices when favorites change
+        viewModelScope.launch {
+            favoritePoolsStore.favoriteIdsFlow.collect { favIds ->
+                prefetchFavoriteNotices(favIds, force = false)
+            }
         }
     }
 
@@ -104,6 +123,8 @@ class PoolRecommendationsViewModel @Inject constructor(
         refreshTick.value = refreshTick.value + 1
         viewModelScope.launch {
             runCatching { crowdMonitorRepository.refresh(force = true) }
+            val favs = favoritePoolsStore.getFavoriteIds()
+            prefetchFavoriteNotices(favs, force = true)
         }
     }
 
@@ -113,10 +134,17 @@ class PoolRecommendationsViewModel @Inject constructor(
         }
     }
 
+    private suspend fun prefetchFavoriteNotices(favoriteIds: Set<String>, force: Boolean) {
+        if (favoriteIds.isEmpty()) return
+        val pools = poolsRepository.selectablePools().filter { it.id in favoriteIds }
+        runCatching { poolNoticeRepository.ensureLoadedMany(pools, force = force) }
+    }
+
     private fun buildState(
         favoriteIds: Set<String>,
         minMinutesUntilClose: Long,
         crowd: CrowdMonitorSnapshot,
+        notices: Map<String, PoolNoticeEntry>,
     ): PoolRecommendationsUiState {
         val zone = clockProvider.zoneId()
         val nowZ = ZonedDateTime.ofInstant(clockProvider.now(), zone)
@@ -133,6 +161,7 @@ class PoolRecommendationsViewModel @Inject constructor(
             minMinutesUntilClose = minMinutesUntilClose,
             includeClosingSoon = true,
         )
+        // Intentionally do NOT filter by stzh-disturber closures yet
         val recommended = all.filter { it.isRecommended }
         val closingSoon = all.filter { it.isClosingSoon }
         val openIds = all.map { it.pool.id }.toSet()
@@ -154,6 +183,7 @@ class PoolRecommendationsViewModel @Inject constructor(
             favoriteIds = favoriteIds,
             minMinutes = minMinutesUntilClose,
             crowd = crowd,
+            noticesByPoolId = notices.filterKeys { it in favoriteIds },
         )
     }
 }
@@ -167,6 +197,7 @@ fun PoolRecommendationsScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val timeFmt = DateTimeFormatter.ofPattern("H:mm")
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -208,6 +239,21 @@ fun PoolRecommendationsScreen(
         ) {
             Text(stringResource(R.string.recommend_refresh))
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = {
+                if (!GoogleWalletLauncher.open(context)) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.wallet_open_failed),
+                        Toast.LENGTH_LONG,
+                    ).show()
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.home_open_wallet))
+        }
 
         // Top pick hero
         Spacer(modifier = Modifier.height(24.dp))
@@ -230,6 +276,7 @@ fun PoolRecommendationsScreen(
                 timeFmt = timeFmt,
                 highlighted = true,
                 crowd = state.crowd,
+                notice = state.noticesByPoolId[top.pool.id],
                 onOpenPool = { onOpenPool(top.pool.id) },
                 onToggleFavorite = { viewModel.toggleFavorite(top.pool.id) },
             )
@@ -250,6 +297,7 @@ fun PoolRecommendationsScreen(
                     timeFmt = timeFmt,
                     highlighted = false,
                     crowd = state.crowd,
+                    notice = state.noticesByPoolId[rec.pool.id],
                     onOpenPool = { onOpenPool(rec.pool.id) },
                     onToggleFavorite = { viewModel.toggleFavorite(rec.pool.id) },
                 )
@@ -277,6 +325,7 @@ fun PoolRecommendationsScreen(
                     timeFmt = timeFmt,
                     highlighted = false,
                     crowd = state.crowd,
+                    notice = state.noticesByPoolId[rec.pool.id],
                     onOpenPool = { onOpenPool(rec.pool.id) },
                     onToggleFavorite = { viewModel.toggleFavorite(rec.pool.id) },
                 )
@@ -297,6 +346,7 @@ fun PoolRecommendationsScreen(
                     pool = pool,
                     isFavorite = true,
                     crowd = state.crowd,
+                    notice = state.noticesByPoolId[pool.id],
                     onOpenPool = { onOpenPool(pool.id) },
                     onToggleFavorite = { viewModel.toggleFavorite(pool.id) },
                 )
@@ -368,6 +418,7 @@ private fun RecommendationCard(
     timeFmt: DateTimeFormatter,
     highlighted: Boolean,
     crowd: CrowdMonitorSnapshot,
+    notice: PoolNoticeEntry?,
     onOpenPool: () -> Unit,
     onToggleFavorite: () -> Unit,
 ) {
@@ -444,13 +495,19 @@ private fun RecommendationCard(
                     MaterialTheme.colorScheme.primary
                 },
             )
-            if (rec.isFavorite && rec.pool.crowdMonitorUid != null) {
-                Spacer(modifier = Modifier.height(8.dp))
-                OccupancyIconsRow(
-                    connection = crowd.connection,
-                    occupancy = crowd.forUid(rec.pool.crowdMonitorUid),
-                    compact = false,
-                )
+            if (rec.isFavorite) {
+                if (notice != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    PoolNoticeBanner(entry = notice, compact = true)
+                }
+                if (rec.pool.crowdMonitorUid != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OccupancyIconsRow(
+                        connection = crowd.connection,
+                        occupancy = crowd.forUid(rec.pool.crowdMonitorUid),
+                        compact = false,
+                    )
+                }
             }
             rec.pool.description?.let {
                 Spacer(modifier = Modifier.height(4.dp))
@@ -469,6 +526,7 @@ private fun FavoriteClosedRow(
     pool: Pool,
     isFavorite: Boolean,
     crowd: CrowdMonitorSnapshot,
+    notice: PoolNoticeEntry?,
     onOpenPool: () -> Unit,
     onToggleFavorite: () -> Unit,
 ) {
@@ -503,13 +561,19 @@ private fun FavoriteClosedRow(
                 )
             }
         }
-        if (isFavorite && pool.crowdMonitorUid != null) {
-            Spacer(modifier = Modifier.height(4.dp))
-            OccupancyIconsRow(
-                connection = crowd.connection,
-                occupancy = crowd.forUid(pool.crowdMonitorUid),
-                compact = true,
-            )
+        if (isFavorite) {
+            if (notice != null) {
+                Spacer(modifier = Modifier.height(4.dp))
+                PoolNoticeBanner(entry = notice, compact = true)
+            }
+            if (pool.crowdMonitorUid != null) {
+                Spacer(modifier = Modifier.height(4.dp))
+                OccupancyIconsRow(
+                    connection = crowd.connection,
+                    occupancy = crowd.forUid(pool.crowdMonitorUid),
+                    compact = true,
+                )
+            }
         }
     }
 }

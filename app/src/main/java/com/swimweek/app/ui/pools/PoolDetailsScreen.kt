@@ -34,6 +34,7 @@ import androidx.lifecycle.viewModelScope
 import com.swimweek.app.R
 import com.swimweek.app.data.CrowdMonitorRepository
 import com.swimweek.app.data.FavoritePoolsStore
+import com.swimweek.app.data.PoolNoticeRepository
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.ZurichPoolsRepository
 import com.swimweek.app.domain.CrowdMonitorSnapshot
@@ -41,6 +42,7 @@ import com.swimweek.app.domain.EveningPoolSelector
 import com.swimweek.app.domain.OpenPoolRecommender
 import com.swimweek.app.domain.OpeningHourSlot
 import com.swimweek.app.domain.Pool
+import com.swimweek.app.domain.PoolNoticeEntry
 import com.swimweek.app.ui.theme.AmoledBlack
 import com.swimweek.app.util.ClockProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -61,6 +63,7 @@ data class PoolDetailsUiState(
     val openStatus: String? = null,
     val minutesUntilClose: Long? = null,
     val crowd: CrowdMonitorSnapshot = CrowdMonitorSnapshot(),
+    val notice: PoolNoticeEntry? = null,
 )
 
 @HiltViewModel
@@ -69,6 +72,7 @@ class PoolDetailsViewModel @Inject constructor(
     private val favoritePoolsStore: FavoritePoolsStore,
     private val preferencesStore: PreferencesStore,
     private val crowdMonitorRepository: CrowdMonitorRepository,
+    private val poolNoticeRepository: PoolNoticeRepository,
     private val clockProvider: ClockProvider,
 ) : ViewModel() {
 
@@ -79,7 +83,8 @@ class PoolDetailsViewModel @Inject constructor(
         favoritePoolsStore.favoriteIdsFlow,
         preferencesStore.preferencesFlow,
         crowdMonitorRepository.snapshot,
-    ) { poolId, favorites, prefs, crowd ->
+        poolNoticeRepository.entries,
+    ) { poolId, favorites, prefs, crowd, notices ->
         if (poolId == null) return@combine PoolDetailsUiState(notFound = true)
         val pool = poolsRepository.findPool(poolId)
             ?: return@combine PoolDetailsUiState(notFound = true)
@@ -108,6 +113,7 @@ class PoolDetailsViewModel @Inject constructor(
             openStatus = openStatus,
             minutesUntilClose = open?.minutesUntilClose,
             crowd = crowd,
+            notice = notices[poolId],
         )
     }.stateIn(
         viewModelScope,
@@ -119,6 +125,10 @@ class PoolDetailsViewModel @Inject constructor(
         poolIdFlow.value = poolId
         viewModelScope.launch {
             runCatching { crowdMonitorRepository.refresh() }
+            val pool = poolsRepository.findPool(poolId)
+            if (pool != null) {
+                runCatching { poolNoticeRepository.ensureLoaded(pool) }
+            }
         }
     }
 
@@ -204,6 +214,12 @@ fun PoolDetailsScreen(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+        }
+
+        // Lazy-loaded online stzh-disturber (closure banners, etc.)
+        if (state.notice != null) {
+            Spacer(modifier = Modifier.height(12.dp))
+            PoolNoticeBanner(entry = state.notice, compact = false)
         }
 
         pool.url?.let { pageUrl ->

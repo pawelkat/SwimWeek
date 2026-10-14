@@ -53,6 +53,7 @@ import com.swimweek.app.data.UserPreferences
 import com.swimweek.app.domain.DistanceUnit
 import com.swimweek.app.sync.WidgetUpdater
 import com.swimweek.app.ui.theme.AmoledBlack
+import com.swimweek.app.util.GoogleWalletLauncher
 import com.swimweek.app.util.LengthFormat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.DayOfWeek
@@ -451,6 +452,34 @@ fun SettingsScreen(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(stringResource(R.string.settings_save_timing))
+        }
+
+        Spacer(modifier = Modifier.height(28.dp))
+        Text(
+            text = stringResource(R.string.settings_wallet_title),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = stringResource(R.string.settings_wallet_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        OutlinedButton(
+            onClick = {
+                if (!GoogleWalletLauncher.open(context)) {
+                    android.widget.Toast.makeText(
+                        context,
+                        context.getString(R.string.wallet_open_failed),
+                        android.widget.Toast.LENGTH_LONG,
+                    ).show()
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.home_open_wallet))
         }
         Spacer(modifier = Modifier.height(24.dp))
     }

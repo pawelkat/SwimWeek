@@ -79,13 +79,15 @@ class SessionDetailsViewModel @Inject constructor(
     val uiState: StateFlow<SessionDetailsUiState> = combine(
         sessionIdFlow,
         repository.summaryFlow,
+        repository.sessionByIdFlow,
         placeStore.placesFlow,
         favoritePoolsStore.favoriteIdsFlow,
-    ) { sessionId, summary, places, favoriteIds ->
+    ) { sessionId, summary, historySessions, places, favoriteIds ->
         if (sessionId == null) {
             return@combine SessionDetailsUiState(notFound = true)
         }
         val session = summary?.sessions?.firstOrNull { it.id == sessionId }
+            ?: historySessions[sessionId]
         val place = places[sessionId]
         val pools = poolsRepository.selectablePools()
             .sortedWith(

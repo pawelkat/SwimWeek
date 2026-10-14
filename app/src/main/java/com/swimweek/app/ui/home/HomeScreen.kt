@@ -36,6 +36,7 @@ import com.swimweek.app.domain.SourceStatus
 import com.swimweek.app.domain.TargetProgress
 import com.swimweek.app.ui.components.SwimIconWithProgress
 import com.swimweek.app.ui.theme.AmoledBlack
+import com.swimweek.app.util.GoogleWalletLauncher
 import com.swimweek.app.util.LengthFormat
 import com.swimweek.app.widget.SwimWeekWidgetReceiver
 import java.time.ZoneId
@@ -178,6 +179,8 @@ fun HomeScreen(
         WeeklyStatsBarChart(
             points = state.weekStats,
             unit = state.distanceUnit,
+            sessionPlaces = state.sessionPlaces,
+            onOpenSession = onOpenSession,
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -257,6 +260,22 @@ fun HomeScreen(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(stringResource(R.string.home_pool_recommendations))
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = {
+                val opened = GoogleWalletLauncher.open(context)
+                if (!opened) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.wallet_open_failed),
+                        Toast.LENGTH_LONG,
+                    ).show()
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.home_open_wallet))
         }
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedButton(

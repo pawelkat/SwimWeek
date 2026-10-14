@@ -4,6 +4,7 @@ import com.swimweek.app.data.ChangesTokenStore
 import com.swimweek.app.data.PreferencesStore
 import com.swimweek.app.data.SummaryCacheStore
 import com.swimweek.app.domain.SourceStatus
+import com.swimweek.app.domain.SwimSession
 import com.swimweek.app.domain.WeekRange
 import com.swimweek.app.domain.WeekStatPoint
 import com.swimweek.app.domain.WeeklySwimSummary
@@ -37,6 +38,7 @@ class SwimDistanceRepository @Inject constructor(
 ) {
     private val inMemory = MutableStateFlow<WeeklySwimSummary?>(null)
     private val weeklyHistory = MutableStateFlow<List<WeekStatPoint>>(emptyList())
+    private val sessionIndex = MutableStateFlow<Map<String, SwimSession>>(emptyMap())
 
     /** Cache + latest in-memory refresh for UI. */
     val summaryFlow: Flow<WeeklySwimSummary?> =
@@ -44,6 +46,9 @@ class SwimDistanceRepository @Inject constructor(
 
     /** Recent weeks for home bar chart (oldest → newest). */
     val weeklyHistoryFlow: Flow<List<WeekStatPoint>> = weeklyHistory
+
+    /** Sessions from the loaded history window, keyed by session id. */
+    val sessionByIdFlow: Flow<Map<String, SwimSession>> = sessionIndex
 
     /**
      * Entry used by UI and workers.
@@ -138,7 +143,9 @@ class SwimDistanceRepository @Inject constructor(
 
     private suspend fun refreshWeeklyHistoryBestEffort() {
         try {
-            weeklyHistory.value = loadWeeklyHistory(weeksBack = HISTORY_WEEKS)
+            val history = loadWeeklyHistory(weeksBack = HISTORY_WEEKS)
+            weeklyHistory.value = history
+            sessionIndex.value = history.flatMap { it.sessions }.associateBy { it.id }
         } catch (_: Exception) {
             // keep previous history
         }
@@ -182,6 +189,7 @@ class SwimDistanceRepository @Inject constructor(
                     resultMeters = summary.totalDistanceMeters,
                     targetMeters = target,
                     isCurrentWeek = isCurrent,
+                    sessions = summary.sessions,
                 ),
             )
             week = week.previous()
@@ -250,6 +258,8 @@ class SwimDistanceRepository @Inject constructor(
         summaryCache.clear()
         changesTokenStore.clear()
         inMemory.value = null
+        weeklyHistory.value = emptyList()
+        sessionIndex.value = emptyMap()
         widgetUpdater.updateAll()
     }
 

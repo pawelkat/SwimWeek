@@ -10,6 +10,8 @@ data class WeekStatPoint(
     val resultMeters: Double,
     val targetMeters: Double,
     val isCurrentWeek: Boolean = false,
+    /** Sessions attributed to this week (start time in week), newest last. */
+    val sessions: List<SwimSession> = emptyList(),
 ) {
     val hasTarget: Boolean get() = targetMeters > 0.0
 }

@@ -14,6 +14,10 @@
     <string name="home_refreshing">Refreshing…</string>
     <string name="home_diagnostics">Diagnostics</string>
     <string name="home_pool_recommendations">Open pools now</string>
+    <string name="home_open_wallet">Sportabo (Google Wallet)</string>
+    <string name="wallet_open_failed">Could not open Google Wallet. Install it from Play Store.</string>
+    <string name="settings_wallet_title">Sportabo</string>
+    <string name="settings_wallet_body">Your Jahresabo QR stays in Google Wallet. SwimWeek only opens Wallet — it never reads or copies the ticket.</string>
     <string name="home_settings">Settings</string>
 
     <string name="recommend_title">Pool recommendations</string>
@@ -61,7 +65,10 @@
     <string name="home_hint_bridge">Confirm Samsung Health is exporting exercise &amp; distance to Health Connect.</string>
     <string name="home_hint_hc">Install or update Health Connect from the Play Store.</string>
     <string name="home_stats_title">Weekly statistics</string>
-    <string name="home_stats_subtitle">Last 6 weeks — result vs target</string>
+    <string name="home_stats_subtitle">Last 6 weeks — tap a bar for pool visits</string>
+    <string name="home_stats_week_visits_title">Visits · week of %1$s</string>
+    <string name="home_stats_week_visits_empty">No swim sessions this week.</string>
+    <string name="home_stats_week_visits_close">Close</string>
     <string name="home_stats_legend_result">Result</string>
     <string name="home_stats_legend_target">Target</string>
     <string name="home_stats_empty">No week stats yet. Refresh after granting Health Connect access.</string>
@@ -188,5 +195,9 @@
     <string name="crowd_guests">%1$d guests</string>
     <string name="crowd_heading">Live occupancy</string>
     <string name="crowd_source_hint">Same feed as Stadt Zürich Auslastung (CrowdMonitor)</string>
+
+    <string name="notice_loading">Loading notice…</string>
+    <string name="notice_unavailable">Could not load live notice</string>
 </resources>
+
 
